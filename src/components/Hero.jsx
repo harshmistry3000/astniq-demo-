@@ -23,9 +23,9 @@ export function Hero() {
 
           <div className="mb-6 flex flex-col items-start w-full opacity-0 animate-[fade-in_1s_ease-out_forwards]">
             <h1 className="ubuntu-bold text-7xl md:text-[90px] lg:text-[110px] leading-[0.9] tracking-tight text-slate-900 block">
-              Ship<br />
+              Build<br />
               <LineShadowText className="italic" shadowColor="#1e293b">
-                Fast
+                Future
               </LineShadowText>
             </h1>
           </div>
