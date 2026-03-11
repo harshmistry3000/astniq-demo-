@@ -1,14 +1,10 @@
 import React from 'react';
-import SplitText from './ui/SplitText';
 import { GravityStarsBackground } from '@/components/animate-ui/components/backgrounds/gravity-stars';
 import { OrbitingCircles } from '@/components/ui/orbiting-circles';
+import { LineShadowText } from '@/components/ui/line-shadow-text';
 import { Icons } from './ui/Icons';
 
 export function Hero() {
-  const handleAnimationComplete = () => {
-    console.log('Hero title animated!');
-  };
-
   return (
     <section className="relative w-full min-h-screen pt-32 pb-20 overflow-hidden flex flex-col items-center justify-center bg-white">
       {/* Subtle modern background radial gradient */}
@@ -25,47 +21,13 @@ export function Hero() {
             Enterprise Software Solutions
           </div>
 
-          <div className="mb-6 flex flex-col items-start w-full">
-            <SplitText
-               text="Beyond"
-               className="ubuntu-bold text-6xl md:text-[80px] lg:text-[100px] leading-[0.9] tracking-tight text-slate-900 block"
-               delay={40}
-               duration={1.2}
-               ease="power4.out"
-               splitType="chars"
-               from={{ opacity: 0, y: 80, rotateX: 45 }}
-               to={{ opacity: 1, y: 0, rotateX: 0 }}
-               threshold={0.1}
-               textAlign="left"
-               tag="span"
-            />
-            <SplitText
-               text="The Flat"
-               className="ubuntu-bold text-6xl md:text-[80px] lg:text-[100px] leading-[0.9] tracking-tight text-slate-900 block my-1 md:my-3"
-               delay={40}
-               duration={1.2}
-               ease="power4.out"
-               splitType="chars"
-               from={{ opacity: 0, y: 80, rotateX: 45 }}
-               to={{ opacity: 1, y: 0, rotateX: 0 }}
-               threshold={0.1}
-               textAlign="left"
-               tag="span"
-            />
-            <SplitText
-               text="Plane."
-               className="ubuntu-bold text-6xl md:text-[80px] lg:text-[100px] leading-[0.9] tracking-tight text-slate-900 block"
-               delay={40}
-               duration={1.2}
-               ease="power4.out"
-               splitType="chars"
-               from={{ opacity: 0, y: 80, rotateX: 45 }}
-               to={{ opacity: 1, y: 0, rotateX: 0 }}
-               threshold={0.1}
-               textAlign="left"
-               tag="span"
-               onLetterAnimationComplete={handleAnimationComplete}
-            />
+          <div className="mb-6 flex flex-col items-start w-full opacity-0 animate-[fade-in_1s_ease-out_forwards]">
+            <h1 className="ubuntu-bold text-7xl md:text-[90px] lg:text-[110px] leading-[0.9] tracking-tight text-slate-900 block">
+              Ship<br />
+              <LineShadowText className="italic" shadowColor="#1e293b">
+                Fast
+              </LineShadowText>
+            </h1>
           </div>
 
           <p className="quicksand-font text-lg md:text-xl text-slate-500 max-w-lg mb-10 font-medium leading-relaxed opacity-0 animate-[fade-in_1s_ease-out_1s_forwards]">
