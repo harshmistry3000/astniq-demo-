@@ -67,7 +67,7 @@ function TechnologiesPageWrapper() {
 
 function App() {
   return (
-    <Router>
+    <Router basename="/astniq-demo-/">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/ai" element={<AIPageWrapper />} />
