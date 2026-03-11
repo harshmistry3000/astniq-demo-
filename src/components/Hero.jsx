@@ -1,6 +1,6 @@
 import React from 'react';
 import SplitText from './ui/SplitText';
-
+import { GravityStarsBackground } from '@/components/animate-ui/components/backgrounds/gravity-stars';
 export function Hero() {
   const handleAnimationComplete = () => {
     console.log('Hero title animated!');
@@ -9,8 +9,10 @@ export function Hero() {
   return (
     <section className="relative w-full min-h-screen pt-32 pb-20 overflow-hidden flex flex-col items-center justify-center bg-white">
       {/* Subtle modern background radial gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_center,rgba(241,245,249,0.5),transparent_60%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_center,rgba(241,245,249,0.5),transparent_60%)] pointer-events-none z-0" />
       
+      <GravityStarsBackground className="absolute inset-0 w-full h-full opacity-60" />
+
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 w-full flex flex-col items-center justify-center text-center mt-8">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-sm font-semibold mb-12 shadow-sm quicksand-font ring-1 ring-blue-100">
           <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
