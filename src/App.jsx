@@ -1,4 +1,4 @@
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Navbar } from './components/Navbar'
 import { Hero } from './components/Hero'
 import { Services } from './components/Services'
@@ -7,21 +7,73 @@ import { ConsultingServices } from './components/ConsultingServices'
 import { Technologies } from './components/Technologies'
 import { HowWeWork } from './components/HowWeWork'
 import { ChooseFuture } from './components/ChooseFuture'
+import { Footer } from './components/Footer'
+import { GlobeStats } from './components/GlobeStats'
+import { MarqueeTicker } from './components/MarqueeTicker'
+import { FloatingCubes } from './components/FloatingCubes'
+import { AIPage } from './pages/AIPage'
+import { ServicePage } from './pages/ServicePage'
+import { TechnologiesPage } from './pages/TechnologiesPage'
 import './App.css'
+
+function HomePage() {
+  return (
+    <div className="w-full min-h-screen relative bg-white overflow-x-hidden">
+      <Navbar />
+      <Hero />
+      <MarqueeTicker />
+      <Services />
+      <OurServices />
+      <GlobeStats />
+      <ConsultingServices />
+      <FloatingCubes />
+      <Technologies />
+      <HowWeWork />
+      <ChooseFuture />
+      <Footer />
+    </div>
+  )
+}
+
+function AIPageWrapper() {
+  return (
+    <div className="w-full min-h-screen overflow-x-hidden">
+      <Navbar />
+      <AIPage />
+      <Footer />
+    </div>
+  )
+}
+
+function ServicePageWrapper() {
+  return (
+    <div className="w-full min-h-screen overflow-x-hidden">
+      <Navbar />
+      <ServicePage />
+      <Footer />
+    </div>
+  )
+}
+
+function TechnologiesPageWrapper() {
+  return (
+    <div className="w-full min-h-screen overflow-x-hidden">
+      <Navbar />
+      <TechnologiesPage />
+      <Footer />
+    </div>
+  )
+}
 
 function App() {
   return (
     <Router>
-      <div className="w-full min-h-screen relative bg-white overflow-x-hidden">
-        <Navbar />
-        <Hero />
-        <Services />
-        <OurServices />
-        <ConsultingServices />
-        <Technologies />
-        <HowWeWork />
-        <ChooseFuture />
-      </div>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/ai" element={<AIPageWrapper />} />
+        <Route path="/services" element={<ServicePageWrapper />} />
+        <Route path="/technologies" element={<TechnologiesPageWrapper />} />
+      </Routes>
     </Router>
   )
 }

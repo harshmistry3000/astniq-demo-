@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   Menu, X, ChevronDown, ChevronRight,
   Bot, BarChart2, MonitorPlay, Brain, 
@@ -87,17 +87,31 @@ const MenuDropdown = ({ isOpen, children, width = "w-64" }) => {
 };
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  // Only use transparent-start behaviour on the home page.
+  // On all other routes (AI, Services, etc.) the navbar is always opaque so it
+  // stays readable over dark hero sections.
+  const isHome = location.pathname === '/';
+
+  const [isScrolled, setIsScrolled] = useState(!isHome);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
   const [activeServiceTab, setActiveServiceTab] = useState(serviceTabs[0]);
   const menuRef = useRef(null);
 
+  // Reset scroll state when route changes
   useEffect(() => {
+    setIsScrolled(!isHome || window.scrollY > 20);
+    setMobileMenuOpen(false);
+    setActiveMenu(null);
+  }, [location.pathname, isHome]);
+
+  useEffect(() => {
+    if (!isHome) return; // non-home pages always opaque — no scroll listener needed
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHome]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -123,7 +137,7 @@ export function Navbar() {
   return (
     <nav ref={menuRef} className={cn(
       'fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out',
-      isScrolled || activeMenu ? 'bg-white/80 backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-b border-white/50 py-3' : 'bg-transparent py-5'
+      isScrolled || activeMenu ? 'bg-white/95 backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.07)] border-b border-gray-100 py-3' : 'bg-transparent py-5'
     )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex justify-between items-center">
@@ -143,7 +157,8 @@ export function Navbar() {
             {/* Service Mega Menu */}
             <div className="relative">
               <div className={navItemClass('Service')} onClick={() => toggleMenu('Service')}>
-                Service <ChevronDown size={14} className={cn("transition-transform duration-200", activeMenu === 'Service' && "rotate-180")} />
+                <Link to="/services" className="hover:text-blue-600" onClick={e => e.stopPropagation()}>Service</Link>
+                <ChevronDown size={14} className={cn("transition-transform duration-200", activeMenu === 'Service' && "rotate-180")} />
               </div>
               <MenuDropdown isOpen={activeMenu === 'Service'} width="w-[850px] -ml-40">
                 <div className="flex gap-6 h-[450px]">
@@ -189,7 +204,21 @@ export function Navbar() {
                     ) : (
                       <div className="grid grid-cols-3 gap-2">
                         {activeServiceTab.items.map(item => (
-                          <Link key={item} to={item === 'Cloud Development' ? '/cloud-development' : '#'} className="flex items-center justify-center text-center w-full px-2 py-2 min-h-[44px] bg-white border border-gray-100 text-gray-600 text-xs font-medium rounded-xl hover:border-blue-400 hover:text-blue-600 hover:shadow-[0_4px_12px_rgba(37,99,235,0.1)] hover:-translate-y-0.5 transition-all duration-300 break-words">{item}</Link>
+                          <Link
+                            key={item}
+                            to={
+                              item === 'AI' ? '/ai' :
+                              item === 'Generative AI' ? '/ai' :
+                              item === 'Machine Learning' ? '/ai' :
+                              item === 'NLP' ? '/ai' :
+                              item === 'Computer Vision' ? '/ai' :
+                              item === 'MLOps' ? '/ai' :
+                              item === 'Robotic Automation' ? '/ai' :
+                              item === 'Cloud Development' ? '/cloud-development' :
+                              '#'
+                            }
+                            className="flex items-center justify-center text-center w-full px-2 py-2 min-h-[44px] bg-white border border-gray-100 text-gray-600 text-xs font-medium rounded-xl hover:border-blue-400 hover:text-blue-600 hover:shadow-[0_4px_12px_rgba(37,99,235,0.1)] hover:-translate-y-0.5 transition-all duration-300 break-words"
+                          >{item}</Link>
                         ))}
                       </div>
                     )}
@@ -201,7 +230,8 @@ export function Navbar() {
             {/* Technologies Mega Menu */}
             <div className="relative">
               <div className={navItemClass('Technologies')} onClick={() => toggleMenu('Technologies')}>
-                Technologies <ChevronDown size={14} className={cn("transition-transform duration-200", activeMenu === 'Technologies' && "rotate-180")} />
+                <Link to="/technologies" className="hover:text-blue-600" onClick={e => e.stopPropagation()}>Technologies</Link>
+                <ChevronDown size={14} className={cn("transition-transform duration-200", activeMenu === 'Technologies' && "rotate-180")} />
               </div>
               <MenuDropdown isOpen={activeMenu === 'Technologies'} width="w-[1000px] -ml-[400px]">
                 <div className="grid grid-cols-3 gap-6 p-2 max-h-[60vh] overflow-y-auto">
