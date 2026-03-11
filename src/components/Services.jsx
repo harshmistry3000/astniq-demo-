@@ -123,15 +123,15 @@ export function Services() {
 
   const TitleContent = (
     <div className="flex flex-col items-center justify-center">
-      <div className="inline-flex items-center gap-2 px-5 py-2 bg-brand-yellow border-4 border-brand-black neo-shadow-black rounded-lg mb-8 w-fit transform -rotate-2">
-        <span className="text-brand-black text-sm font-black uppercase tracking-widest">// CAPABILITIES</span>
-      </div>
-      <h2 className="ubuntu-bold text-5xl md:text-7xl lg:text-[100px] text-brand-black uppercase tracking-tight leading-[0.9] mb-8" style={{ textShadow: '4px 4px 0 #ef4444' }}>
-        Our Digital<br />
-        <span className="text-brand-white" style={{ WebkitTextStroke: '3px #0a0a0f', textShadow: '6px 6px 0 #1a56db' }}>Arsenal</span>
+      <p className="text-blue-600 font-bold tracking-widest uppercase text-sm mb-6 quicksand-font flex items-center justify-center gap-2">
+        <span className="text-blue-400 font-bold">//</span> CAPABILITIES
+      </p>
+      <h2 className="ubuntu-bold text-5xl md:text-7xl lg:text-[100px] text-slate-900 uppercase tracking-tight leading-[0.9] mb-8">
+        Our Digital<br />Arsenal
       </h2>
-      <div className="bg-brand-white border-4 border-brand-black p-6 md:p-8 rounded-2xl neo-shadow-blue relative max-w-2xl mx-auto w-full group transition-all duration-300 transform rotate-1">
-        <p className="quicksand-font text-lg md:text-xl font-black text-brand-black uppercase leading-snug">
+      <div className="w-[150px] h-2 bg-blue-600 rounded-full mb-10 mx-auto" />
+      <div className="bg-blue-50 border-2 border-blue-200 p-6 md:p-8 rounded-2xl shadow-[6px_6px_0_0_rgba(191,219,254,1)] relative max-w-2xl mx-auto w-full group transition-all duration-300">
+        <p className="quicksand-font text-lg md:text-xl font-bold text-slate-800 uppercase leading-snug">
           We don't just design; we engineer experiences that pop off the screen.
         </p>
       </div>
@@ -139,21 +139,19 @@ export function Services() {
   );
 
   return (
-    <section className="bg-brand-white border-b-8 border-brand-black relative w-full overflow-hidden pb-32 md:pb-48 lg:pb-64" id="services">
-      {/* Comic dot pattern background */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#0a0a0f 2px, transparent 2px)', backgroundSize: '24px 24px' }} />
+    <section className="bg-slate-50 relative w-full overflow-hidden pb-32 md:pb-48 lg:pb-64" id="services">
       <ContainerScrollAnimation titleComponent={TitleContent}>
         
         {/* Split Screen Application Layout */}
-        <div className="flex h-full w-full bg-brand-white text-brand-black font-sans overflow-hidden border-8 border-brand-black rounded-3xl neo-shadow-yellow relative z-10">
+        <div className="flex h-full w-full bg-white text-slate-900 font-sans overflow-hidden">
           
           {/* LEFT SIDEBAR: List of 12 Interactive Boxes */}
-          <div className="w-full md:w-[45%] lg:w-[40%] border-r-4 border-brand-black flex flex-col items-center bg-brand-white/50">
+          <div className="w-full md:w-[45%] lg:w-[40%] border-r border-slate-100 flex flex-col items-center bg-slate-50/50">
              
              {/* Simple Header */}
-             <div className="sticky top-0 bg-brand-yellow z-10 w-full p-4 border-b-4 border-brand-black flex items-center justify-between">
-                <span className="ubuntu-bold text-xl text-brand-black uppercase">Disciplines</span>
-                <span className="text-sm font-black text-brand-white bg-brand-black px-3 py-1 rounded-xl uppercase transform rotate-2 shadow-[2px_2px_0_#ef4444]">12 Available</span>
+             <div className="sticky top-0 bg-white/80 backdrop-blur-md z-10 w-full p-4 border-b border-slate-100 flex items-center justify-between shadow-sm">
+                <span className="ubuntu-bold text-lg text-slate-800 uppercase">Disciplines</span>
+                <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-full border border-blue-100 uppercase">12 Available</span>
              </div>
 
              <div className="w-full flex-1 overflow-y-auto custom-scrollbar p-4 space-y-3 pb-24">
@@ -163,25 +161,25 @@ export function Services() {
                      <button
                         key={index}
                         onClick={() => setActiveIndex(index)}
-                        className={`w-full text-left p-4 transition-all duration-300 border-4 border-brand-black flex items-start gap-4 ${
+                        className={`w-full text-left p-4 rounded-xl transition-all duration-300 border-2 flex items-start gap-4 ${
                            isActive 
-                           ? 'bg-brand-blue text-brand-white neo-shadow-black scale-[1.02] rounded-xl' 
-                           : 'bg-brand-white hover:bg-brand-yellow hover:neo-shadow-black hover:-translate-y-1 rounded-lg'
+                           ? service.activeTheme + ' shadow-md scale-[1.02]' 
+                           : 'bg-white border-slate-200/50 hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm'
                         }`}
                      >
-                        <div className={`p-2.5 rounded-xl shrink-0 mt-0.5 transition-colors border-2 border-brand-black ${isActive ? 'bg-brand-white text-brand-black neo-shadow-yellow' : 'bg-brand-black text-brand-white'}`}>
-                           <service.icon size={24} />
+                        <div className={`p-2.5 rounded-lg shrink-0 mt-0.5 transition-colors ${isActive ? service.iconActive : 'bg-slate-100 text-slate-500'}`}>
+                           <service.icon size={20} />
                         </div>
                         <div className="flex-1">
-                           <h3 className={`ubuntu-bold text-[17px] mb-1 tracking-tight uppercase ${isActive ? 'text-brand-white' : 'text-brand-black'}`}>
+                           <h3 className={`ubuntu-bold text-[15px] mb-1 tracking-tight ${isActive ? 'text-slate-900' : 'text-slate-700'}`}>
                               {service.title}
                            </h3>
-                           <p className={`quicksand-font text-[13px] leading-relaxed line-clamp-2 ${isActive ? 'text-brand-white/90 font-bold' : 'text-brand-black/70 font-semibold'}`}>
+                           <p className={`quicksand-font text-[12px] leading-relaxed line-clamp-2 ${isActive ? 'text-slate-700 font-medium' : 'text-slate-500'}`}>
                               {service.description}
                            </p>
                         </div>
                         
-                        <div className={`shrink-0 mt-2 transition-opacity ${isActive ? 'opacity-100 text-brand-yellow' : 'opacity-0'}`}>
+                        <div className={`shrink-0 mt-2 transition-opacity ${isActive ? 'opacity-100 text-slate-800' : 'opacity-0'}`}>
                            <ArrowRight size={16} />
                         </div>
                      </button>
@@ -191,29 +189,29 @@ export function Services() {
           </div>
 
           {/* RIGHT SIDE: Detail Pane (150 Word descriptions) */}
-          <div className="hidden md:flex flex-1 bg-brand-white relative overflow-y-auto custom-scrollbar p-10 lg:p-14 pb-24 border-l-4 border-brand-black">
-             {/* Hardware aesthetic pattern */}
-             <div className="absolute top-0 right-0 w-32 h-32 opacity-10" style={{ backgroundImage: 'linear-gradient(45deg, #0a0a0f 25%, transparent 25%, transparent 75%, #0a0a0f 75%, #0a0a0f), linear-gradient(45deg, #0a0a0f 25%, transparent 25%, transparent 75%, #0a0a0f 75%, #0a0a0f)', backgroundSize: '20px 20px', backgroundPosition: '0 0, 10px 10px' }} />
+          <div className="hidden md:flex flex-1 bg-white relative overflow-y-auto custom-scrollbar p-10 lg:p-14 pb-24">
+             {/* Soft background glow based on active topic */}
+             <div className="absolute top-[-20%] right-[-20%] w-[80%] h-[80%] opacity-20 blur-[100px] pointer-events-none rounded-full" />
 
-             <div className="flex flex-col h-full w-full max-w-2xl mx-auto justify-center relative z-10" key={activeIndex}>
+             <div className="flex flex-col h-full w-full max-w-2xl mx-auto justify-center" key={activeIndex}>
                 {/* Entrance Animation Wrapper */}
                 <div className="animate-[fade-in_0.4s_ease-out]">
                    
-                   <div className={`inline-flex p-5 rounded-2xl mb-8 border-4 border-brand-black bg-brand-yellow text-brand-black neo-shadow-black transform rotate-3`}>
-                      <activeService.icon size={56} strokeWidth={2.5} />
+                   <div className={`inline-flex p-4 rounded-2xl mb-8 border-4 border-white shadow-xl ${activeService.iconActive}`}>
+                      <activeService.icon size={48} />
                    </div>
                    
-                   <h2 className="ubuntu-bold text-4xl lg:text-[50px] text-brand-black mb-6 tracking-tight uppercase leading-none" style={{ textShadow: '3px 3px 0 #10b981' }}>
+                   <h2 className="ubuntu-bold text-4xl lg:text-[50px] text-slate-900 mb-6 tracking-tight uppercase leading-none">
                       {activeService.title}
                    </h2>
                    
-                   <div className={`w-24 h-4 border-2 border-brand-black bg-brand-red rounded-none mb-8 neo-shadow-black transform -rotate-1`} />
+                   <div className={`w-20 h-2 rounded-full mb-8 ${activeService.line}`} />
                    
-                   <h4 className="text-2xl text-brand-black font-black mb-6 quicksand-font bg-white/50 p-4 border-l-8 border-brand-blue">
+                   <h4 className="text-xl text-slate-800 font-semibold mb-6 quicksand-font italic">
                       {activeService.description}
                    </h4>
 
-                   <p className="quicksand-font text-[18px] text-brand-black leading-[1.8] font-semibold text-justify">
+                   <p className="quicksand-font text-[17px] text-slate-600 leading-[1.8] font-medium text-justify column-rule">
                       {activeService.detail}
                    </p>
                    

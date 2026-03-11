@@ -56,15 +56,6 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			},
-  			brand: {
-  				blue: 'var(--brand-blue)',
-  				'blue-d': 'var(--brand-blue-d)',
-  				black: 'var(--brand-black)',
-  				yellow: 'var(--brand-yellow)',
-  				red: 'var(--brand-red)',
-  				green: 'var(--brand-green)',
-  				white: 'var(--brand-white)',
   			}
   		},
 		keyframes: {

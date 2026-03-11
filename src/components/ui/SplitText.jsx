@@ -19,7 +19,6 @@ const SplitText = ({
   rootMargin = '-100px',
   textAlign = 'center',
   tag = 'p',
-  style: customStyle = {},
   onLetterAnimationComplete
 }) => {
   const ref = useRef(null);
@@ -148,10 +147,9 @@ const SplitText = ({
     const style = {
       textAlign,
       wordWrap: 'break-word',
-      willChange: 'transform, opacity',
-      ...customStyle
+      willChange: 'transform, opacity'
     };
-    const classes = `split-parent inline-block whitespace-normal ${className}`;
+    const classes = `split-parent overflow-hidden inline-block whitespace-normal ${className}`;
     const Tag = tag || 'p';
 
     return (

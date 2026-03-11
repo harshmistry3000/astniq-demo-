@@ -1,65 +1,71 @@
-import React from 'react';
-import { Mail, Instagram, Twitter, Linkedin } from 'lucide-react';
+import { Instagram, Twitter, Linkedin, Mail } from 'lucide-react';
 
-const Footer = () => {
-  const colors = {
-    blue: 'bg-[#2D5BFF]',
-    dark: 'bg-[#1A1A1A]',
-  };
-
+export function Footer() {
   return (
-    <footer className={`${colors.dark} text-white py-24 px-6 border-t-[16px] border-black relative z-20`}>
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
-          <div className="col-span-1 md:col-span-2 space-y-8">
-            <div className="flex items-center gap-3">
-              <div className={`w-12 h-12 ${colors.blue} border-4 border-white flex items-center justify-center`}>
-                <span className="font-black text-2xl italic underline decoration-yellow-400">A</span>
+    <footer className="bg-[#18181a] w-full text-white pt-24 pb-12 px-8 md:px-16 lg:px-24 font-sans">
+      <div className="max-w-7xl mx-auto flex flex-col">
+        {/* Top Section */}
+        <div className="flex flex-col md:flex-row justify-between items-start gap-12 md:gap-8 mb-24">
+          
+          {/* Left Column - Brand & Info */}
+          <div className="flex flex-col items-start max-w-sm">
+            {/* Logo */}
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-[#2563EB] border-2 border-white flex flex-col items-center justify-center relative">
+                <span className="text-white font-black text-xl italic leading-none translate-y-[2px]">A</span>
+                <div className="w-4 h-[3px] bg-[#EAB308] mt-1"></div>
               </div>
-              <span className="font-black text-4xl uppercase italic tracking-tighter">Astniq</span>
+              <span className="text-white font-black text-3xl italic tracking-widest">ASTNIQ</span>
             </div>
-            <p className="max-w-md font-bold text-xl text-slate-400 leading-relaxed uppercase">
-              We craft digital artifacts that stand the test of time. 2D simplicity. 3D power. 100% Impact.
+            
+            {/* Description */}
+            <p className="text-[#8E9BBA] font-bold text-sm leading-relaxed mb-10 uppercase tracking-widest pr-4">
+              We craft digital artifacts that stand the test of time. 2D simplicity. 3D power. 100% impact.
             </p>
-            <div className="flex gap-6">
+            
+            {/* Socials */}
+            <div className="flex gap-4 cursor-pointer">
               {[Instagram, Twitter, Linkedin, Mail].map((Icon, i) => (
-                <a key={i} href="#" className="p-4 border-4 border-white hover:bg-yellow-400 hover:text-black hover:border-black transition-all shadow-[6px_6px_0_0_rgba(255,255,255,0.2)] relative z-30">
-                  <Icon size={24} strokeWidth={3} />
-                </a>
+                <div key={i} className="w-11 h-11 border-2 border-white flex items-center justify-center hover:-translate-y-1 transition-transform bg-transparent shadow-[4px_4px_0px_#4a4a4a]">
+                  <Icon size={18} color="white" strokeWidth={2.5} />
+                </div>
               ))}
             </div>
           </div>
-          
-          <div className="space-y-6 relative z-30">
-            <h4 className="font-black uppercase text-2xl text-yellow-400 italic">Navigation</h4>
-            <ul className="space-y-4 font-black uppercase text-slate-400">
-              <li><a href="#" className="hover:text-white hover:pl-2 transition-all">Exploration</a></li>
-              <li><a href="#" className="hover:text-white hover:pl-2 transition-all">Documentation</a></li>
-              <li><a href="#" className="hover:text-white hover:pl-2 transition-all">Careers</a></li>
-              <li><a href="#" className="hover:text-white hover:pl-2 transition-all">Contact</a></li>
+
+          {/* Middle Column - Navigation */}
+          <div className="flex flex-col items-start pt-2">
+            <h3 className="text-[#EAB308] font-black italic text-xl mb-6 uppercase tracking-wider">Navigation</h3>
+            <ul className="flex flex-col gap-4 font-bold text-[#D1D5DB] text-sm tracking-widest uppercase">
+              <li><a href="#" className="hover:text-white transition-colors">Exploration</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
             </ul>
           </div>
 
-          <div className="space-y-6">
-            <h4 className="font-black uppercase text-2xl text-red-500 italic">Studio</h4>
-            <p className="font-bold text-slate-500 uppercase text-xs tracking-widest">
-              Based Globally.<br/>
-              Operated Remotely.<br/>
-              Think Individually.
+          {/* Right Column - Studio */}
+          <div className="flex flex-col items-start pt-2 pr-0 md:pr-12">
+            <h3 className="text-[#EF4444] font-black italic text-xl mb-6 uppercase tracking-wider">Studio</h3>
+            <p className="text-[#8E9BBA] font-bold text-[11px] leading-[1.8] uppercase tracking-[0.2em] max-w-[220px]">
+              Based globally.<br/>
+              Operated remotely.<br/>
+              Think individually.
             </p>
           </div>
+          
         </div>
-        
-        <div className="pt-12 border-t-4 border-white/10 flex flex-col md:flex-row justify-between gap-8 text-sm font-black uppercase text-slate-600 tracking-widest relative z-30">
-          <span>© 2024 ASTNIQ DIGITAL ARTIFACTS.</span>
-          <div className="flex gap-12">
-            <a href="#" className="hover:text-white">Privacy</a>
-            <a href="#" className="hover:text-white">Terms</a>
+
+        {/* Bottom Section */}
+        <div className="w-full pt-8 border-t border-[#333333] flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-bold text-[#6B7280] tracking-widest uppercase">
+          <p>© 2024 ASTNIQ DIGITAL ARTIFACTS.</p>
+          <div className="flex gap-10">
+            <a href="#" className="hover:text-[#8E9BBA] transition-colors">Privacy</a>
+            <a href="#" className="hover:text-[#8E9BBA] transition-colors">Terms</a>
           </div>
         </div>
+
       </div>
     </footer>
   );
-};
-
-export { Footer };
+}

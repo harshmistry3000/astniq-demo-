@@ -1,308 +1,482 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Cpu, Code, TrendingUp, PhoneCall, Database, PenTool, Brain, Star, Lightbulb, Plane, Award, Briefcase, Monitor, DollarSign, Activity, MapPin, Mail, Phone } from 'lucide-react';
+import { useRef, useState, useEffect } from 'react';
+import {
+  Bot, Code2, PhoneIncoming, Megaphone, Database, Palette,
+  BrainCircuit, Users, Briefcase, Plane, ClipboardCheck,
+  Building2, FlaskConical, TrendingUp, HeartPulse,
+  ArrowRight, CheckCircle, Phone, Mail, MapPin, Send, Zap
+} from 'lucide-react';
 
-const Floating3D = React.lazy(() => import('../components/Floating3D'));
-const ColorBends = React.lazy(() => import('../components/ColorBends'));
-
-const fadeIn = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+/* ═══════════════════════════════════════════════
+   BRAND COLORS
+═══════════════════════════════════════════════ */
+const C = {
+  blue:   '#1a56db',
+  black:  '#0a0a0f',
+  yellow: '#f59e0b',
+  red:    '#ef4444',
+  green:  '#10b981',
+  white:  '#f8fafc',
 };
 
-const ServiceHero = () => (
-  <section className="relative py-32 md:py-48 px-6 bg-transparent overflow-hidden border-b-8 border-black shadow-[0_8px_0_0_rgba(0,0,0,1)] flex items-center min-h-[90vh]">
-    
-    {/* React Bits Color Bends Background */}
-    <div className="absolute inset-0 z-0 opacity-80 pointer-events-none">
-      <React.Suspense fallback={null}>
-        <ColorBends
-          colors={['#1E5DDb', '#FBC02D', '#28a745', '#ff6b00', '#e31b23', '#e5fcc2']}
-          frequency={2}
-          amplitude={1.5}
-          speed={0.3}
-          warpStrength={1.5}
-          noise={0.15}
-        />
-      </React.Suspense>
-    </div>
-
-    {/* Halftone Texture Overlay */}
-    <div className="absolute inset-0 z-10 mix-blend-overlay opacity-30 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#111 2px, transparent 2px)', backgroundSize: '16px 16px' }} />
-    
-    <div className="max-w-7xl mx-auto text-center space-y-6 relative z-20 w-full pointer-events-none">
-      <motion.div initial="hidden" animate="visible" variants={fadeIn}>
-        <div className="inline-flex items-center gap-2 px-6 py-2 border-[3px] border-black bg-white font-black uppercase text-sm shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] pointer-events-auto text-black">
-          <Star size={16} strokeWidth={3} /> Global Solutions
-        </div>
-        
-        <h1 className="text-6xl md:text-8xl lg:text-[110px] font-black leading-none tracking-tighter uppercase whitespace-nowrap overflow-visible pointer-events-auto mt-6">
-          <span className="text-white drop-shadow-[4px_4px_0_rgba(0,0,0,1)]">Our</span> 
-          {' '}
-          <span className="text-[#FFD335] relative inline-block drop-shadow-[4px_4px_0_rgba(0,0,0,1)]">
-            Services
-            {/* Thick blue underline mimicking the screenshot */}
-            <span className="absolute -bottom-1 left-0 w-[100%] h-3 bg-[#2D5BFF] -z-10"></span>
-          </span>
-        </h1>
-        
-        <div className="mt-12 max-w-4xl mx-auto bg-white border-[6px] border-black p-8 md:p-10 shadow-[10px_10px_0_0_rgba(0,0,0,1)] pointer-events-auto text-black">
-          <p className="text-xl md:text-3xl font-bold leading-snug">
-            Unlock the full potential of your online presence with our comprehensive services. Our team of experts will optimize your website, enhance your visibility, and drive targeted organic traffic, ensuring your business thrives in the digital landscape.
-          </p>
-        </div>
-      </motion.div>
-    </div>
-  </section>
-);
-
-const ExploreServices = () => (
-  <section className="py-24 bg-[#FFD335] border-b-8 border-primary-border relative overflow-hidden">
-    <React.Suspense fallback={null}>
-      <Floating3D shapeType="icosahedron" color="#2D5BFF" className="absolute -top-10 -left-10 w-96 h-96 opacity-40" rotateSpeed={[0.02, 0.05]} />
-    </React.Suspense>
-    <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-16 relative z-10">
-      {/* Abstract Fake Graphic to replace globe */}
-      <motion.div 
-        initial={{ rotate: -10, x: -50, opacity: 0 }}
-        whileInView={{ rotate: 0, x: 0, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, type: "spring" }}
-        className="w-full md:w-1/2"
-      >
-        <div className="relative w-full aspect-square max-w-md mx-auto">
-          <div className="absolute inset-0 bg-brand-blue rounded-full border-8 border-primary-border shadow-[12px_12px_0px_#111111] flex items-center justify-center overflow-hidden">
-            <div className="w-full h-full opacity-30 bg-[repeating-linear-gradient(45deg,transparent,transparent_20px,#ffffff_20px,#ffffff_40px)]" />
-            
-            {/* Hexagons mimicking image content */}
-            <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity }} className="absolute top-1/4 left-1/4 bg-brand-yellow w-24 h-24 border-4 border-primary-border neo-brutalism flex items-center justify-center rotate-12">
-              <Code size={40} className="text-[#111111]" />
-            </motion.div>
-            <motion.div animate={{ y: [0, 15, 0] }} transition={{ duration: 5, repeat: Infinity }} className="absolute bottom-1/4 right-1/4 bg-brand-red w-32 h-32 border-4 border-primary-border neo-brutalism flex items-center justify-center -rotate-6">
-              <Activity size={56} className="text-white" />
-            </motion.div>
-            <motion.div animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 3, repeat: Infinity }} className="absolute top-1/3 right-1/4 bg-[#e5fcc2] w-20 h-20 border-4 border-primary-border rounded-full shadow-[4px_4px_0px_#111111] flex items-center justify-center rotate-45">
-              <Cpu size={32} className="text-[#111111]" />
-            </motion.div>
-
-          </div>
-        </div>
-      </motion.div>
-      
-      <motion.div 
-        initial={{ opacity: 0, x: 50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="w-full md:w-1/2 p-10 bg-white border-4 border-black shadow-[12px_12px_0_0_rgba(0,0,0,1)] text-[#111111]"
-      >
-        <h3 className="text-brand-blue font-black text-2xl uppercase tracking-wider mb-4 border-b-4 border-brand-blue inline-block">Explore Our Services</h3>
-        <h2 className="text-4xl md:text-5xl font-black text-[#111111] mb-8 leading-tight">
-          Transforming Your Business with <span className="bg-brand-yellow px-2 neo-brutalism transform -rotate-2 inline-block">Cutting-Edge Solutions</span>
-        </h2>
-        <div className="space-y-6 text-lg font-semibold text-gray-800">
-          <p className="bg-[#f0f0f0] p-4 border-l-8 border-brand-blue rounded-r-lg">
-            At Astniq Solution, we are committed to helping your business thrive in the digital age. Our comprehensive range of services covers everything you need to enhance your online presence and reach your target audience effectively.
-          </p>
-          <p>
-            Our team of experts will work closely with you to develop tailored strategies and implement best practices intended to maximize out potential. Whether it's through our organic inbound capabilities or other digital avenues, our focus is on ensuring your overall digital experience meets expectations.
-          </p>
-          <p>
-            Explore our services below to discover how we can help you achieve your goals. If you have any specific challenges, don't hesitate to reach out to us! We are more than capable of handling any complex technical challenge and finding the perfect solution for your needs.
-          </p>
-        </div>
-      </motion.div>
-    </div>
-  </section>
-);
-
+/* ═══════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════ */
 const serviceCategories = [
-  { name: 'Artificial Intelligence', icon: <Cpu size={32} />, color: 'bg-brand-red', desc: 'Leverage the power of AI to automate tasks, gain insights, and enhance decision making. Our AI solutions are designed to transform the way you do business.' },
-  { name: 'Development', icon: <Code size={32} />, color: 'bg-brand-blue', desc: 'Expert developers create custom software and web applications tailored to your business needs, ensuring your digital presence is as efficient as it is appealing.' },
-  { name: 'Inbound', icon: <TrendingUp size={32} />, color: 'bg-brand-green', desc: 'Attract, engage, and delight customers with our inbound marketing strategies. We help you create meaningful connections and drive results.' },
-  { name: 'Outbound', icon: <PhoneCall size={32} />, color: 'bg-brand-yellow', desc: 'Reach your target audience with high-impact outbound marketing techniques. Connect with your customers and ensure your brand stands out.' },
-  { name: 'Data', icon: <Database size={32} />, color: 'bg-[#a3c2ff]', desc: 'Unlock the value of your data. Our data solutions provide insights that help improve your organization and make informed decisions.' },
-  { name: 'Designing', icon: <PenTool size={32} />, color: 'bg-brand-yellow', desc: 'Our creative experts design interfaces that elevate your brand and drive results. From logos to websites, we make your brand image unforgettable.' },
-  { name: 'Neuro-Inclusion', icon: <Brain size={32} />, color: 'bg-[#bfe1f6]', desc: 'We promote diversity and inclusion through inclusive design methodologies. Ensure your digital environment welcomes all ability levels.' },
-  { name: 'Experience Management', icon: <Star size={32} />, color: 'bg-[#fffd00]', desc: 'Enhance both customer and employee experiences with our management strategies. Add to satisfaction, loyalty, and productivity.' },
-  { name: 'Consulting', icon: <Lightbulb size={32} />, color: 'bg-[#e5fcc2]', desc: 'Our IT consulting services guide your business toward success. We help you strategize, plan, and execute right IT solutions.' },
+  {
+    icon: Bot,
+    title: 'Artificial Intelligence',
+    desc: 'Leverage the power of AI to automate tasks, gain insights, and enhance decision-making.',
+    color: C.blue,
+    bg: '#e8f0fe',
+    path: '/ai',
+  },
+  {
+    icon: Code2,
+    title: 'Development',
+    desc: 'Custom software and web applications tailored to unique needs, ensuring efficiency and appeal.',
+    color: C.green,
+    bg: '#d1fae5',
+    path: '#',
+  },
+  {
+    icon: PhoneIncoming,
+    title: 'Inbound',
+    desc: 'Attract, engage, and convert customers with proven inbound marketing strategies.',
+    color: C.yellow,
+    bg: '#fef3c7',
+    path: '#',
+  },
+  {
+    icon: Megaphone,
+    title: 'Outbound',
+    desc: 'Expand reach and impact with outbound marketing techniques and enhanced brand visibility.',
+    color: C.red,
+    bg: '#fee2e2',
+    path: '#',
+  },
+  {
+    icon: Database,
+    title: 'Data',
+    desc: 'Unlock potential through data solutions providing valuable insights for informed decisions.',
+    color: C.blue,
+    bg: '#e8f0fe',
+    path: '#',
+  },
+  {
+    icon: Palette,
+    title: 'Designing',
+    desc: 'Creative design bringing brands to life with captivating visuals — logos, websites and more.',
+    color: C.green,
+    bg: '#d1fae5',
+    path: '#',
+  },
+  {
+    icon: BrainCircuit,
+    title: 'Neuro-Inclusion',
+    desc: 'Promoting diversity and inclusivity through accessible, neuro-friendly digital environments.',
+    color: C.yellow,
+    bg: '#fef3c7',
+    path: '#',
+  },
+  {
+    icon: Users,
+    title: 'Experience Management',
+    desc: 'Enhancing customer and employee satisfaction, loyalty, and organizational productivity.',
+    color: C.red,
+    bg: '#fee2e2',
+    path: '#',
+  },
+  {
+    icon: Briefcase,
+    title: 'Consulting',
+    desc: 'Guiding businesses toward success with strategic planning and execution of IT solutions.',
+    color: C.green,
+    bg: '#d1fae5',
+    path: '#',
+  },
 ];
 
-const ServicesGrid = () => (
-  <section className="py-24 bg-[#0a192f] border-b-8 border-primary-border pattern-bg relative overflow-hidden">
-    <React.Suspense fallback={null}>
-      <Floating3D shapeType="torus" color="#FF8A3D" className="absolute bottom-0 right-0 w-[500px] h-[500px] opacity-20" rotateSpeed={[0.02, 0.04]} />
-    </React.Suspense>
-    
-    <div className="max-w-7xl mx-auto px-4 relative z-10">
-      <motion.div 
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-16"
+const industrySolutions = [
+  {
+    icon: Plane,
+    title: 'Travel And Aviation',
+    desc: 'Gateway to exquisite journeys and high-flying adventures. AI-powered booking, recommendations, and customer experiences.',
+    accent: C.blue,
+  },
+  {
+    icon: ClipboardCheck,
+    title: 'Quality Resourcing',
+    desc: 'Elevating success with top-notch resources and exceptional results for your business.',
+    accent: C.yellow,
+  },
+  {
+    icon: Building2,
+    title: 'Business Services',
+    desc: 'Enhancing company efficiency and growth potential through comprehensive digital services.',
+    accent: C.green,
+  },
+  {
+    icon: FlaskConical,
+    title: 'Software And Research',
+    desc: 'Innovative solutions at the intersection of software engineering and cutting-edge research.',
+    accent: C.red,
+  },
+  {
+    icon: TrendingUp,
+    title: 'Financial Planning',
+    desc: 'Unlocking financial futures with expert planning, analytics, and intelligent automation.',
+    accent: C.blue,
+  },
+  {
+    icon: HeartPulse,
+    title: 'Healthcare Services',
+    desc: 'Prioritizing well-being and vitality through top-quality AI-powered healthcare solutions.',
+    accent: C.green,
+  },
+];
+
+/* ═══════════════════════════════════════════════
+   REVEAL WRAPPER
+═══════════════════════════════════════════════ */
+function Reveal({ children, delay = 0, from = 'bottom' }) {
+  const ref = useRef(null);
+  const [v, setV] = useState(false);
+  useEffect(() => {
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) setV(true); }, { threshold: 0.08 });
+    if (ref.current) io.observe(ref.current);
+    return () => io.disconnect();
+  }, []);
+  const transforms = {
+    bottom: v ? 'translateY(0)' : 'translateY(32px)',
+    left:   v ? 'translateX(0)' : 'translateX(-32px)',
+    right:  v ? 'translateX(0)' : 'translateX(32px)',
+  };
+  return (
+    <div ref={ref} style={{ opacity: v ? 1 : 0, transform: transforms[from], transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms` }}>
+      {children}
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════
+   CONSTELLATION / NETWORK BG
+═══════════════════════════════════════════════ */
+function NetworkBg() {
+  return (
+    <svg className="absolute inset-0 w-full h-full opacity-[0.12] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.5" fill="white" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#dots)" />
+      {/* Decorative lines */}
+      <line x1="10%" y1="20%" x2="40%" y2="60%" stroke="white" strokeWidth="0.8" opacity="0.3" />
+      <line x1="40%" y1="60%" x2="80%" y2="30%" stroke="white" strokeWidth="0.8" opacity="0.3" />
+      <line x1="80%" y1="30%" x2="60%" y2="80%" stroke="white" strokeWidth="0.8" opacity="0.3" />
+      <circle cx="40%" cy="60%" r="4" fill="white" opacity="0.5" />
+      <circle cx="80%" cy="30%" r="4" fill="white" opacity="0.5" />
+      <circle cx="10%" cy="20%" r="4" fill="white" opacity="0.5" />
+    </svg>
+  );
+}
+
+/* ═══════════════════════════════════════════════
+   HEX ICON — decorative central graphic
+═══════════════════════════════════════════════ */
+function HexGraphic() {
+  const icons = [Bot, Code2, Database, BrainCircuit, Palette, Users];
+  return (
+    <div className="relative w-72 h-72 mx-auto flex items-center justify-center">
+      <div className="absolute inset-0 rounded-full border-2 border-blue-300/40 animate-spin-slow" style={{ animationDuration: '20s' }} />
+      <div className="w-40 h-40 rounded-full flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(10px)', border: '2px solid rgba(255,255,255,0.2)' }}>
+        <Zap size={56} style={{ color: C.yellow }} />
+      </div>
+      {icons.map((Icon, i) => {
+        const angle = (i / icons.length) * 2 * Math.PI - Math.PI / 2;
+        const x = 50 + 42 * Math.cos(angle);
+        const y = 50 + 42 * Math.sin(angle);
+        return (
+          <div key={i} className="absolute w-10 h-10 rounded-xl flex items-center justify-center" style={{ left: `${x}%`, top: `${y}%`, transform: 'translate(-50%,-50%)', background: 'rgba(255,255,255,0.15)', border: '1.5px solid rgba(255,255,255,0.3)' }}>
+            <Icon size={18} style={{ color: [C.blue, C.green, C.yellow, C.red, C.green, C.blue][i] }} />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════
+   MAIN PAGE
+═══════════════════════════════════════════════ */
+export function ServicePage() {
+  const categoriesRef = useRef(null);
+
+  return (
+    <div className="w-full overflow-x-hidden" style={{ fontFamily: "'Quicksand', sans-serif" }}>
+
+      {/* ══════════════════════════════════════════
+          HERO — dark blue/black + network pattern
+      ══════════════════════════════════════════ */}
+      <section
+        className="relative w-full min-h-[60vh] flex flex-col items-center justify-center text-center overflow-hidden pt-32 pb-20 px-4"
+        style={{ background: `linear-gradient(135deg, ${C.black} 0%, #0d1b3e 50%, #0a2472 100%)` }}
       >
-        <h2 className="text-5xl font-black text-white inline-block border-b-4 border-brand-yellow pb-4 uppercase shadow-[4px_4px_0_0_rgba(0,0,0,1)] bg-black px-4 pt-2 -rotate-1">Our Services Categories</h2>
-      </motion.div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {serviceCategories.map((cat, idx) => (
-          <motion.div 
-            key={idx}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
-            whileHover={{ y: -10, rotate: idx % 2 === 0 ? 1 : -1 }}
-            className={`bg-white border-4 border-primary-border shadow-[8px_8px_0px_#111111] overflow-hidden group cursor-pointer h-full flex flex-col`}
-          >
-            <div className={`p-6 border-b-4 border-primary-border ${cat.color} flex items-center group-hover:brightness-110 transition-all`}>
-              <div className="bg-white p-3 border-4 border-primary-border rounded-full neo-brutalism mr-4">
-                {cat.icon}
-              </div>
-              <h3 className="text-2xl font-black uppercase text-[#111111] leading-tight">{cat.name}</h3>
-            </div>
-            <div className="p-6 bg-white flex-grow">
-              <p className="text-lg font-medium text-gray-700 leading-relaxed">
-                {cat.desc}
-              </p>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
+        <NetworkBg />
 
-const ClientSuccess = () => {
-  const industries = [
-    { name: 'Travel And Aviation', icon: <Plane size={24} />, desc: 'Explore the future of travel and aviation – your gateway to flights of success and unparalleled experiences.' },
-    { name: 'Quality Resourcing', icon: <Award size={24} />, desc: 'Discover the power of Quality Resourcing in the exceptional handle. Ensure your team excels with expertise.' },
-    { name: 'Business Services', icon: <Briefcase size={24} />, desc: 'Explore our comprehensive range of business services designed to enhance your company operations.' },
-    { name: 'Software And Research', icon: <Monitor size={24} />, desc: 'Capitalize the intersection of Software and Research in execution tailored to projects.' },
-    { name: 'Financial Planning', icon: <DollarSign size={24} />, desc: 'Unlock Your Financial Future with Expert Financial Planning tools.' },
-    { name: 'Healthcare Services', icon: <Activity size={24} />, desc: 'Seamlessly navigate world-class Healthcare services tailored to your well-being journey.' }
-  ];
+        {/* Accent bar top */}
+        <div className="absolute top-0 left-0 right-0 h-1 flex">
+          <div className="flex-1" style={{ background: C.blue }} />
+          <div className="flex-1" style={{ background: C.yellow }} />
+          <div className="flex-1" style={{ background: C.red }} />
+          <div className="flex-1" style={{ background: C.green }} />
+        </div>
 
-  return (
-    <section className="py-24 bg-[#00D285] border-b-8 border-primary-border relative overflow-hidden">
-      <React.Suspense fallback={null}>
-        <Floating3D shapeType="box" color="#1A1A1A" className="absolute top-20 left-20 w-48 h-48 opacity-40" rotateSpeed={[0.03, 0.05]} />
-      </React.Suspense>
-      
-      <div className="max-w-6xl mx-auto px-4 text-center relative z-10">
-        <motion.h2 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-black text-[#111111] mb-16 leading-tight max-w-4xl mx-auto bg-white border-4 border-black p-6 shadow-[8px_8px_0_0_rgba(0,0,0,1)]"
-        >
-          Our success is intrinsically tied to our clients' success. <span className="bg-brand-yellow text-black px-2 mt-2 inline-block neo-brutalism transform rotate-1 border-2 border-black">Your achievement is our primary goal.</span>
-        </motion.h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {industries.map((ind, idx) => (
-            <motion.div 
-              key={idx}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              whileHover={{ scale: 1.05 }}
-              className="bg-[#e4fcff] border-4 border-[#8ad3e6] shadow-[4px_4px_0px_rgba(138,211,230,1)] p-6 rounded-lg flex flex-col sm:flex-row items-start text-left gap-4"
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-6 text-xs font-black uppercase tracking-[0.3em]" style={{ background: 'rgba(26,86,219,0.3)', border: `1px solid ${C.blue}`, color: '#93c5fd' }}>
+            <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: C.yellow }} />
+            Astniq Solution
+          </div>
+
+          <h1 className="ubuntu-bold text-5xl md:text-7xl text-white tracking-tight mb-6 leading-tight">
+            Our{' '}
+            <span style={{ color: C.yellow }}>Services</span>
+          </h1>
+
+          <p className="text-blue-100/80 text-base md:text-lg max-w-3xl mx-auto leading-relaxed font-medium">
+            Unlock the full potential of your online presence with our comprehensive services. Our team of experts will optimize your website, enhance your visibility, and drive targeted organic traffic, ensuring your business thrives in the digital landscape.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+            <button
+              onClick={() => categoriesRef.current?.scrollIntoView({ behavior: 'smooth' })}
+              className="flex items-center gap-2 px-8 py-4 font-black text-base rounded-full transition-all duration-300 hover:-translate-y-1"
+              style={{ background: C.blue, color: 'white', boxShadow: `0 8px 30px ${C.blue}60` }}
             >
-              <div className="text-[#2b8aab] mt-1 shrink-0 bg-white p-2 rounded-full border-2 border-[#8ad3e6]">
-                {ind.icon}
-              </div>
-              <div>
-                <h4 className="font-black text-xl text-[#0b4d66] mb-2">{ind.name}</h4>
-                <p className="text-sm font-medium text-[#2d6c82]">{ind.desc}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const ContactForm = () => (
-  <section className="py-24 bg-[#FF8A3D] relative overflow-hidden">
-    <React.Suspense fallback={null}>
-      <Floating3D shapeType="torus" color="#ffffff" className="absolute -bottom-32 -left-32 w-[600px] h-[600px] opacity-20" rotateSpeed={[0.015, 0.02]} />
-    </React.Suspense>
-    {/* Abstract dotted bg */}
-    <div className="absolute top-0 right-0 w-1/2 h-full opacity-30 pointer-events-none mix-blend-multiply" style={{ backgroundImage: 'radial-gradient(#111 3px, transparent 3px)', backgroundSize: '24px 24px' }} />
-    
-    <motion.div 
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ staggerChildren: 0.2 }}
-      className="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row gap-16 relative z-10"
-    >
-      <div className="w-full lg:w-1/2 text-brand-black">
-        <h2 className="text-6xl font-black mb-6 uppercase text-white drop-shadow-[4px_4px_0_rgba(0,0,0,1)]">Get In Touch</h2>
-        <p className="text-xl font-bold bg-[#f4f4f0] p-6 border-4 border-black border-l-[12px] border-l-brand-yellow mb-10 text-gray-800 shadow-[6px_6px_0_0_rgba(0,0,0,1)]">
-          Questions or need support? Contact our seasoned IT consultants for tailored solutions that enhance your digital footprint. Your success is our mission!
-        </p>
-        
-        <div className="space-y-8">
-          <div className="flex items-center group">
-            <div className="w-12 h-12 bg-white border-4 border-primary-border shadow-[4px_4px_0px_#111111] flex items-center justify-center mr-6 group-hover:-translate-y-1 transition-transform">
-              <Phone size={20} />
-            </div>
-            <span className="text-xl font-bold">+91 99789 71636</span>
-          </div>
-          <div className="flex items-center group">
-            <div className="w-12 h-12 bg-white border-4 border-primary-border shadow-[4px_4px_0px_#111111] flex items-center justify-center mr-6 group-hover:-translate-y-1 transition-transform">
-              <Mail size={20} />
-            </div>
-            <span className="text-xl font-bold">info@astniq.com</span>
-          </div>
-          <div className="flex items-center group">
-            <div className="w-12 h-12 bg-white border-4 border-primary-border shadow-[4px_4px_0px_#111111] flex items-center justify-center mr-6 group-hover:-translate-y-1 transition-transform">
-              <MapPin size={20} />
-            </div>
-            <span className="text-lg font-bold">503, Sun Avenue One, near Shyamal, Ambawadi, Ahmedabad, Gujarat</span>
+              View All Services <ArrowRight size={18} />
+            </button>
+            <a href="#contact" className="flex items-center gap-2 px-8 py-4 font-black text-base rounded-full border-2 text-white transition-all duration-300 hover:-translate-y-1" style={{ borderColor: 'rgba(255,255,255,0.3)' }}>
+              Get In Touch
+            </a>
           </div>
         </div>
-      </div>
 
-      <div className="w-full lg:w-1/2">
-        <form className="bg-white border-8 border-primary-border shadow-[16px_16px_0px_#111111] p-8 md:p-12 relative text-brand-black">
-          {/* Decorative tape graphic */}
-          <div className="absolute -top-4 -right-4 w-32 h-8 bg-brand-yellow transform rotate-3 z-20 border-2 border-[#111111] opacity-80 mix-blend-multiply" />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <input type="text" placeholder="First Name" className="w-full p-4 border-4 border-primary-border bg-[#fae8d4] font-bold outline-none focus:bg-white transition-colors placeholder-[#8c7b69]" />
-            <input type="text" placeholder="Last Name" className="w-full p-4 border-4 border-primary-border bg-[#fae8d4] font-bold outline-none focus:bg-white transition-colors placeholder-[#8c7b69]" />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <input type="email" placeholder="Email" className="w-full p-4 border-4 border-primary-border bg-[#fae8d4] font-bold outline-none focus:bg-white transition-colors placeholder-[#8c7b69]" />
-            <input type="tel" placeholder="Phone no." className="w-full p-4 border-4 border-primary-border bg-[#fae8d4] font-bold outline-none focus:bg-white transition-colors placeholder-[#8c7b69]" />
-          </div>
-          <input type="text" placeholder="Subject" className="w-full p-4 border-4 border-primary-border bg-[#fae8d4] font-bold outline-none focus:bg-white transition-colors placeholder-[#8c7b69] mb-6" />
-          <textarea placeholder="Project Description" rows="4" className="w-full p-4 border-4 border-primary-border bg-[#fae8d4] font-bold outline-none focus:bg-white transition-colors placeholder-[#8c7b69] mb-8 resize-none"></textarea>
-          
-          <button type="button" className="bg-[#0000ff] text-white text-xl font-black uppercase px-8 py-4 border-4 border-primary-border w-1/2 shadow-[6px_6px_0px_#111111] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_#111111] active:translate-x-[6px] active:translate-y-[6px] active:shadow-none transition-all">
-            Submit Action
-          </button>
-        </form>
-      </div>
-    </motion.div>
-  </section>
-);
+        {/* Bottom wave */}
+        <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
+          <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full h-14">
+            <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill={C.white} />
+          </svg>
+        </div>
+      </section>
 
-const ServicePage = () => {
-  return (
-    <div className="w-full overflow-hidden bg-white">
-      <ServiceHero />
-      <ExploreServices />
-      <ServicesGrid />
-      <ClientSuccess />
-      <ContactForm />
+      {/* ══════════════════════════════════════════
+          EXPLORE OUR SERVICES — white bg, hex graphic
+      ══════════════════════════════════════════ */}
+      <section style={{ background: C.white }} className="py-20 px-4 md:px-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Left — graphic */}
+          <Reveal from="left">
+            <div
+              className="rounded-3xl p-10 flex items-center justify-center min-h-[320px]"
+              style={{ background: `linear-gradient(135deg, ${C.black} 0%, #0d1b3e 100%)` }}
+            >
+              <HexGraphic />
+            </div>
+          </Reveal>
+
+          {/* Right — text */}
+          <Reveal from="right" delay={100}>
+            <span className="font-black uppercase tracking-[0.3em] text-sm block mb-3" style={{ color: C.blue }}>
+              // Explore Our Services
+            </span>
+            <h2 className="ubuntu-bold text-3xl md:text-4xl text-gray-900 mb-5 leading-tight">
+              Transforming Your Business with{' '}
+              <span style={{ color: C.blue }}>Cutting-Edge Solutions</span>
+            </h2>
+            <p className="text-gray-600 text-base leading-relaxed font-medium mb-4">
+              At Global Solution for IT, we are committed to helping businesses thrive in the digital age. From IT consultancy that shapes your strategic direction to AI solutions that redefine efficiency, our team of experts is here to guide you every step of the way.
+            </p>
+            <p className="text-gray-600 text-base leading-relaxed font-medium mb-6">
+              Our services are designed to empower your organization with the latest technologies — whether you're a startup or an established enterprise — delivering measurable results and lasting competitive advantages.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {['Innovation', 'Scalability', 'Results-Driven', 'Expert Team'].map((tag) => (
+                <span key={tag} className="px-4 py-2 rounded-full text-sm font-black border-2" style={{ borderColor: C.blue, color: C.blue, background: '#e8f0fe' }}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          OUR SERVICES CATEGORIES — dark bg, coloured cards
+      ══════════════════════════════════════════ */}
+      <section ref={categoriesRef} className="py-20 px-4 md:px-8" style={{ background: C.black }}>
+        <div className="max-w-7xl mx-auto">
+          <Reveal>
+            <h2 className="ubuntu-bold text-3xl md:text-5xl text-white text-center uppercase tracking-tight mb-3">
+              Our Services <span style={{ color: C.yellow }}>Categories</span>
+            </h2>
+            <p className="text-white/50 text-center max-w-2xl mx-auto text-base font-medium mb-14">
+              Comprehensive solutions across every dimension of your digital strategy.
+            </p>
+          </Reveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {serviceCategories.map((cat, i) => (
+              <Reveal key={i} delay={i * 70}>
+                <a
+                  href={cat.path}
+                  className="group block rounded-2xl p-6 h-full border-2 border-transparent transition-all duration-300 hover:-translate-y-2 cursor-pointer"
+                  style={{ background: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.08)' }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = cat.color; e.currentTarget.style.boxShadow = `0 0 30px ${cat.color}30`; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.boxShadow = 'none'; }}
+                >
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-colors duration-300" style={{ background: cat.bg }}>
+                    <cat.icon size={22} style={{ color: cat.color }} />
+                  </div>
+                  <h3 className="ubuntu-bold text-lg text-white mb-2">{cat.title}</h3>
+                  <p className="text-white/60 text-sm leading-relaxed font-medium mb-4">{cat.desc}</p>
+                  <span className="flex items-center gap-1 text-xs font-black uppercase tracking-wider transition-all duration-300 group-hover:gap-2" style={{ color: cat.color }}>
+                    Learn More <ArrowRight size={12} />
+                  </span>
+                </a>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          QUOTE STRIP — blue bg
+      ══════════════════════════════════════════ */}
+      <section className="relative py-16 px-4 overflow-hidden" style={{ background: C.blue }}>
+        <div className="absolute inset-0 pointer-events-none opacity-10">
+          <NetworkBg />
+        </div>
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
+          <div className="text-5xl text-white/20 mb-2 font-serif leading-none">"</div>
+          <p className="ubuntu-bold text-2xl md:text-3xl text-white leading-snug">
+            Our success is intrinsically tied to our clients' success.{' '}
+            <span style={{ color: C.yellow }}>Your achievement is our primary goal.</span>
+          </p>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          INDUSTRY SOLUTIONS — off-white bg
+      ══════════════════════════════════════════ */}
+      <section className="py-20 px-4 md:px-8" style={{ background: C.white }}>
+        <div className="max-w-7xl mx-auto">
+          <Reveal>
+            <span className="font-black uppercase tracking-[0.3em] text-sm block text-center mb-3" style={{ color: C.blue }}>
+              // Industry Solutions
+            </span>
+            <h2 className="ubuntu-bold text-3xl md:text-4xl text-gray-900 text-center mb-14 leading-tight">
+              Serving Clients Across Every Industry
+            </h2>
+          </Reveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {industrySolutions.map((sol, i) => (
+              <Reveal key={i} delay={i * 80}>
+                <div
+                  className="rounded-2xl p-6 h-full border-2 hover:-translate-y-2 transition-all duration-300 cursor-pointer group"
+                  style={{ borderColor: `${sol.accent}30`, background: `${sol.accent}08` }}
+                  onMouseEnter={e => e.currentTarget.style.borderColor = sol.accent}
+                  onMouseLeave={e => e.currentTarget.style.borderColor = `${sol.accent}30`}
+                >
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ background: `${sol.accent}15` }}>
+                    <sol.icon size={22} style={{ color: sol.accent }} />
+                  </div>
+                  <h3 className="ubuntu-bold text-gray-900 text-lg mb-2" style={{ color: sol.accent }}>{sol.title}</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed font-medium">{sol.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          GET IN TOUCH — black bg
+      ══════════════════════════════════════════ */}
+      <section id="contact" className="py-20 px-4 md:px-8 relative overflow-hidden" style={{ background: C.black }}>
+        <NetworkBg />
+
+        {/* Colour accent bar */}
+        <div className="absolute top-0 left-0 right-0 h-1 flex">
+          <div className="flex-1" style={{ background: C.blue }} />
+          <div className="flex-1" style={{ background: C.yellow }} />
+          <div className="flex-1" style={{ background: C.red }} />
+          <div className="flex-1" style={{ background: C.green }} />
+        </div>
+
+        <div className="max-w-6xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Left */}
+          <Reveal from="left">
+            <h2 className="ubuntu-bold text-3xl md:text-4xl text-white mb-4 leading-tight">
+              Get In <span style={{ color: C.yellow }}>Touch</span>
+            </h2>
+            <p className="text-white/60 text-base font-medium leading-relaxed mb-8">
+              Questions or need support? Contact our seasoned IT consultants for tailored solutions that enhance your digital footprint. Your success is our mission!
+            </p>
+            <div className="space-y-5">
+              {[
+                { icon: Phone,  label: '99789 71636',                                              href: 'tel:9978971636',          accent: C.blue },
+                { icon: Mail,   label: 'info@astniq.com',                                         href: 'mailto:info@astniq.com',  accent: C.green },
+                { icon: MapPin, label: '503, Sun Avenue One, near Shyamal, Ambawadi, Ahmedabad, Gujarat', href: '#',             accent: C.yellow },
+              ].map(({ icon: Icon, label, href, accent }) => (
+                <a key={label} href={href} className="flex items-start gap-4 group">
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-300" style={{ background: `${accent}20`, border: `1.5px solid ${accent}40` }}>
+                    <Icon size={20} style={{ color: accent }} />
+                  </div>
+                  <span className="text-white/70 font-semibold text-sm leading-relaxed mt-2.5 group-hover:text-white transition-colors">{label}</span>
+                </a>
+              ))}
+            </div>
+
+            {/* Stats strip */}
+            <div className="grid grid-cols-3 gap-4 mt-10">
+              {[
+                { val: '150+', label: 'Projects', color: C.blue },
+                { val: '50+',  label: 'Clients',  color: C.yellow },
+                { val: '30+',  label: 'Countries', color: C.green },
+              ].map(s => (
+                <div key={s.label} className="text-center p-4 rounded-xl border" style={{ borderColor: `${s.color}30`, background: `${s.color}10` }}>
+                  <div className="ubuntu-bold text-2xl mb-1" style={{ color: s.color }}>{s.val}</div>
+                  <div className="text-white/50 text-xs font-semibold uppercase tracking-wider">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+
+          {/* Right — form */}
+          <Reveal from="right" delay={150}>
+            <div className="rounded-3xl p-8 border" style={{ background: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.1)' }}>
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <input type="text" placeholder="First Name" className="w-full px-4 py-3 rounded-xl text-white text-sm font-medium outline-none focus:ring-2 transition-all" style={{ background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.15)', '--tw-ring-color': C.blue }} />
+                <input type="text" placeholder="Last Name"  className="w-full px-4 py-3 rounded-xl text-white text-sm font-medium outline-none focus:ring-2 transition-all" style={{ background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.15)', '--tw-ring-color': C.blue }} />
+              </div>
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <input type="email" placeholder="Email"     className="w-full px-4 py-3 rounded-xl text-white text-sm font-medium outline-none focus:ring-2 transition-all" style={{ background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.15)' }} />
+                <input type="tel"   placeholder="Phone no." className="w-full px-4 py-3 rounded-xl text-white text-sm font-medium outline-none focus:ring-2 transition-all" style={{ background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.15)' }} />
+              </div>
+              <input type="text" placeholder="Subject" className="w-full px-4 py-3 rounded-xl text-white text-sm font-medium outline-none mb-4 transition-all" style={{ background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.15)' }} />
+              <textarea placeholder="Project Description" rows={4} className="w-full px-4 py-3 rounded-xl text-white text-sm font-medium outline-none mb-5 resize-none transition-all" style={{ background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.15)' }} />
+              <button
+                className="w-full flex items-center justify-center gap-2 px-8 py-4 font-black text-base rounded-xl transition-all duration-300 hover:-translate-y-0.5"
+                style={{ background: C.blue, color: 'white', boxShadow: `0 8px 30px ${C.blue}50` }}
+              >
+                Submit Button <Send size={18} />
+              </button>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
     </div>
   );
-};
-
-export { ServicePage };
+}

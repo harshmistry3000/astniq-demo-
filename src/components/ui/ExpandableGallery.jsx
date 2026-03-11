@@ -13,8 +13,8 @@ export function ExpandableGallery({ images, className = '' }) {
           <motion.div
             key={index}
             layout
-            className={`relative overflow-hidden rounded-[32px] cursor-pointer shadow-xl transition-all border-8 border-brand-black ${
-              isActive ? 'flex-[4] md:flex-[5] bg-brand-black neo-shadow-red' : 'flex-[1] md:flex-[1] bg-brand-black neo-shadow-black hover:-translate-y-1 hover:neo-shadow-yellow'
+            className={`relative overflow-hidden rounded-[32px] cursor-pointer shadow-xl transition-all ${
+              isActive ? 'flex-[4] md:flex-[5] bg-slate-900' : 'flex-[1] md:flex-[1] bg-slate-800'
             }`}
             transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }} // smooth ease-out curve
             onMouseEnter={() => setActiveItem(index)}
@@ -28,9 +28,9 @@ export function ExpandableGallery({ images, className = '' }) {
               }`}
             />
             
-            {/* Pop-art halftone/gradient Overlay */}
+            {/* Gradient Overlay for Text Readability */}
             <div className={`absolute inset-0 transition-opacity duration-300 ${
-              isActive ? 'bg-gradient-to-t from-brand-black via-brand-black/40 to-transparent' : 'bg-brand-black/60'
+              isActive ? 'bg-gradient-to-t from-black/90 via-black/40 to-transparent' : 'bg-black/60'
             }`} />
 
             {/* Content Container (Revealed when active) */}
@@ -45,13 +45,13 @@ export function ExpandableGallery({ images, className = '' }) {
                 className="overflow-hidden mb-2"
                 style={{ pointerEvents: isActive ? 'auto' : 'none' }}
               >
-                <div className="inline-flex items-center justify-center w-14 h-14 bg-brand-yellow text-brand-black mb-6 font-black text-2xl border-4 border-brand-black neo-shadow-black transform -rotate-6">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-blue-600/90 backdrop-blur-sm text-white mb-6 font-bold text-2xl border border-white/20 shadow-lg">
                   {index + 1}
                 </div>
-                <h3 className="ubuntu-bold text-brand-white text-3xl md:text-5xl mb-4 tracking-tight leading-tight w-full max-w-xl" style={{ textShadow: '4px 4px 0 #1a56db' }}>
+                <h3 className="ubuntu-bold text-white text-3xl md:text-5xl mb-4 tracking-tight leading-tight w-full max-w-xl">
                   {item.title}
                 </h3>
-                <p className="quicksand-font text-brand-black bg-brand-white p-4 border-4 border-brand-black neo-shadow-black text-lg md:text-xl font-bold max-w-lg hidden md:block">
+                <p className="quicksand-font text-blue-50 text-lg md:text-xl font-medium max-w-lg hidden md:block">
                   {item.description}
                 </p>
               </motion.div>
@@ -63,11 +63,9 @@ export function ExpandableGallery({ images, className = '' }) {
               transition={{ duration: 0.3 }}
               className="absolute inset-0 flex items-center justify-center md:items-end md:justify-center pb-8 z-0 pointer-events-none"
             >
-        <div className="bg-brand-white">
-          <span className="text-brand-white ubuntu-bold text-3xl md:text-4xl tracking-widest md:-rotate-90 whitespace-nowrap" style={{ WebkitTextStroke: '2px #0a0a0f', textShadow: '4px 4px 0 #1a56db' }}>
-             {isActive ? '' : `0${index + 1}`}
-          </span>
-        </div>
+                <span className="text-white ubuntu-bold text-3xl md:text-4xl tracking-widest md:-rotate-90 whitespace-nowrap opacity-50">
+                  {isActive ? '' : `0${index + 1}`}
+                </span>
             </motion.div>
 
           </motion.div>

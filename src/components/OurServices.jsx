@@ -94,42 +94,36 @@ const services = [
 
 export function OurServices() {
   return (
-    <section className="bg-brand-white py-24 px-4 md:px-8 w-full min-h-screen flex flex-col justify-center items-center border-b-8 border-brand-black relative">
-      <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#0a0a0f 2px, transparent 2px)', backgroundSize: '30px 30px' }} />
-      <div className="max-w-7xl mx-auto w-full relative z-10">
+    <section className="bg-slate-50 py-20 px-4 md:px-8 w-full min-h-screen flex flex-col justify-center items-center">
+      <div className="max-w-7xl mx-auto w-full">
         {/* Header Section */}
-        <div className="text-center mb-20">
-          <div className="inline-block bg-brand-red text-brand-white px-6 py-2 border-4 border-brand-black neo-shadow-yellow transform -rotate-2 mb-6">
-            <h2 className="text-4xl md:text-6xl ubuntu-bold uppercase tracking-widest">
-              Our Services
-            </h2>
-          </div>
-          <p className="text-xl text-brand-black quicksand-font font-bold max-w-2xl mx-auto p-4 bg-brand-yellow border-4 border-brand-black neo-shadow-blue transform rotate-1">
-            Elevate your business with our comprehensive highly-scalable solutions.
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#2d3748] mb-4">
+            Our Services
+          </h2>
+          <p className="text-lg text-slate-700 font-medium">
+            Elevate your business with our comprehensive software development services.
           </p>
         </div>
 
         {/* Grid Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
             <div 
               key={index} 
-              className="bg-brand-white p-8 border-4 border-brand-black flex flex-col neo-shadow-black hover:-translate-y-2 hover:-translate-x-1 hover:neo-shadow-green cursor-pointer transition-all duration-300 group"
+              className="bg-white p-8 rounded-sm shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.15)] transition-shadow duration-300 border border-slate-100 flex flex-col"
             >
-              <div className={`w-16 h-16 border-4 border-brand-black flex items-center justify-center mb-8 transform -rotate-3 group-hover:rotate-0 transition-transform ${
-                // Reusing brand colors for icons based on index
-                ['bg-brand-blue', 'bg-brand-yellow', 'bg-brand-red', 'bg-brand-green'][index % 4]
-              } text-brand-white neo-shadow-black`}>
-                <service.icon size={32} strokeWidth={2.5} />
+              <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-6 ${service.iconBg} ${service.iconColor}`}>
+                <service.icon size={24} />
               </div>
               
-              <h3 className="text-2xl ubuntu-bold text-brand-black mb-4 leading-tight uppercase relative z-10 transition-colors group-hover:text-brand-blue">
+              <h3 className="text-xl font-bold text-slate-800 mb-4 leading-tight">
                 {service.title}
               </h3>
               
-              <div className="w-12 h-1 bg-brand-black mb-6"></div>
+              <div className="w-8 h-0.5 bg-slate-800 mb-6"></div>
               
-              <p className="text-brand-black quicksand-font text-base leading-relaxed font-semibold">
+              <p className="text-slate-500 text-sm leading-relaxed font-medium">
                 {service.description}
               </p>
             </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   Menu, X, ChevronDown, ChevronRight,
   Bot, BarChart2, MonitorPlay, Brain, 
@@ -87,17 +87,31 @@ const MenuDropdown = ({ isOpen, children, width = "w-64" }) => {
 };
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  // Only use transparent-start behaviour on the home page.
+  // On all other routes (AI, Services, etc.) the navbar is always opaque so it
+  // stays readable over dark hero sections.
+  const isHome = location.pathname === '/';
+
+  const [isScrolled, setIsScrolled] = useState(!isHome);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
   const [activeServiceTab, setActiveServiceTab] = useState(serviceTabs[0]);
   const menuRef = useRef(null);
 
+  // Reset scroll state when route changes
   useEffect(() => {
+    setIsScrolled(!isHome || window.scrollY > 20);
+    setMobileMenuOpen(false);
+    setActiveMenu(null);
+  }, [location.pathname, isHome]);
+
+  useEffect(() => {
+    if (!isHome) return; // non-home pages always opaque — no scroll listener needed
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHome]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -115,15 +129,15 @@ export function Navbar() {
   };
 
   const navItemClass = (menuName) => cn(
-    'flex items-center gap-1 px-3 py-2 rounded-full text-[15px] ubuntu-bold transition-all duration-300 cursor-pointer select-none',
-    activeMenu === menuName ? 'bg-brand-yellow text-brand-black border-2 border-brand-black' :
-    isScrolled ? 'text-brand-black hover:bg-brand-yellow hover:border-2 hover:border-brand-black border-2 border-transparent' : 'text-gray-800 hover:text-brand-blue hover:bg-white/50 border-2 border-transparent'
+    'flex items-center gap-1 px-3 py-2 rounded-full text-[15px] quicksand-font font-bold transition-all duration-300 cursor-pointer select-none',
+    activeMenu === menuName ? 'bg-blue-50 text-blue-600' :
+    isScrolled ? 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50' : 'text-gray-700 hover:text-blue-600 hover:bg-white/50'
   );
 
   return (
     <nav ref={menuRef} className={cn(
       'fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out',
-      isScrolled || activeMenu ? 'bg-brand-white border-b-4 border-brand-black neo-shadow-black py-4' : 'bg-transparent py-6'
+      isScrolled || activeMenu ? 'bg-white/95 backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.07)] border-b border-gray-100 py-3' : 'bg-transparent py-5'
     )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex justify-between items-center">
@@ -321,7 +335,7 @@ export function Navbar() {
               <p className="text-sm text-gray-500 pl-2">Includes: AI, Data, Dev & Design, Consulting...</p>
             </div>
             <div className="py-2 border-b">
-              <Link to="/technologies" className="font-semibold text-gray-900 mb-2 block hover:text-blue-600">Technologies</Link>
+              <div className="font-semibold text-gray-900 mb-2">Technologies</div>
               <p className="text-sm text-gray-500 pl-2">Includes: Frontend, Backend, Cloud, DB...</p>
             </div>
              <div className="py-2 border-b">

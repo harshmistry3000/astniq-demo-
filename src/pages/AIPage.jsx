@@ -9,18 +9,6 @@ import {
 const Spline = lazy(() => import('@splinetool/react-spline'));
 
 /* ═══════════════════════════════════════════════
-   BRAND COLORS
-═══════════════════════════════════════════════ */
-const C = {
-  blue:   '#1a56db',
-  black:  '#0a0a0f',
-  yellow: '#f59e0b',
-  red:    '#ef4444',
-  green:  '#10b981',
-  white:  '#f8fafc',
-};
-
-/* ═══════════════════════════════════════════════
    DATA
 ═══════════════════════════════════════════════ */
 
@@ -115,6 +103,30 @@ function Reveal({ children, delay = 0 }) {
 }
 
 /* ═══════════════════════════════════════════════
+   HEXAGON GRID PATTERN (SVG background)
+═══════════════════════════════════════════════ */
+function HexPattern() {
+  return (
+    <svg
+      className="absolute inset-0 w-full h-full opacity-[0.07] pointer-events-none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <pattern id="hex" x="0" y="0" width="60" height="52" patternUnits="userSpaceOnUse">
+          <polygon
+            points="30,2 56,16 56,44 30,58 4,44 4,16"
+            fill="none"
+            stroke="white"
+            strokeWidth="1.5"
+          />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#hex)" />
+    </svg>
+  );
+}
+
+/* ═══════════════════════════════════════════════
    MAIN COMPONENT
 ═══════════════════════════════════════════════ */
 export function AIPage() {
@@ -130,85 +142,105 @@ export function AIPage() {
           HERO — teal gradient + hex pattern + Spline
       ══════════════════════════════════════════ */}
       <section
-        className="relative w-full min-h-screen flex flex-col lg:flex-row items-center justify-between overflow-hidden border-b-8 border-brand-black bg-brand-green"
+        className="relative w-full min-h-screen flex flex-col lg:flex-row items-center justify-between overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, #009aaa 0%, #00b8c4 35%, #00d4e0 60%, #b2f0f5 85%, #e8fdff 100%)',
+        }}
       >
-        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#0a0a0f 3px, transparent 3px)', backgroundSize: '32px 32px' }} />
+        <HexPattern />
 
         {/* Left text content */}
         <div className="relative z-10 flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-20 pt-36 pb-16 lg:pt-40 max-w-2xl">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-6 py-2 bg-brand-yellow text-brand-black border-4 border-brand-black neo-shadow-black rounded-sm mb-8 w-fit transform -rotate-2">
-            <span className="text-brand-black text-sm font-black uppercase tracking-[0.2em]">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm border border-white/40 rounded-full mb-6 w-fit">
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+            <span className="text-white text-xs font-bold uppercase tracking-[0.25em]">
               Welcome to Astniq Solution
             </span>
           </div>
 
           <h1
-            className="ubuntu-bold text-5xl md:text-6xl lg:text-7xl text-brand-black uppercase leading-tight mb-8"
-            style={{ textShadow: '4px 4px 0 #f8fafc' }}
+            className="font-black text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-4"
+            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.15)' }}
           >
-            AI Services and<br /><span className="text-brand-white" style={{ WebkitTextStroke: '2px #0a0a0f', textShadow: '4px 4px 0 #1a56db' }}>Development</span> <br /> Company
+            AI Services and<br />Development Company
           </h1>
 
-          <p className="quicksand-font text-brand-black bg-brand-white p-6 border-4 border-brand-black neo-shadow-red text-lg md:text-xl font-bold mb-12 transform rotate-1 max-w-xl">
-            Boost your business and Unlock Business Growth with Next-gen AI Services. Empower your Business with Artificial Intelligence.
+          <p className="text-white/90 text-lg md:text-xl font-bold mb-3">
+            Boost your business and Unlock Business Growth with Next-gen AI Services.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-6">
+          <p className="text-white/80 text-base font-semibold mb-10">
+            Empower your Business with Artificial Intelligence (AI)
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4">
             <button
               onClick={scrollToServices}
-              className="flex items-center gap-2 px-8 py-4 bg-brand-blue text-brand-white font-black uppercase text-base border-4 border-brand-black neo-shadow-black hover:translate-x-1 hover:-translate-y-1 hover:neo-shadow-yellow transition-all duration-300"
+              className="flex items-center gap-2 px-8 py-4 bg-white text-[#007a88] font-black text-base rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.2)] hover:-translate-y-1 transition-all duration-300"
             >
-              Explore AI Services <ArrowRight size={20} strokeWidth={3} />
+              Explore AI Services <ArrowRight size={18} />
             </button>
-            <button className="flex items-center gap-2 px-8 py-4 bg-brand-white text-brand-black font-black uppercase text-base border-4 border-brand-black neo-shadow-black hover:translate-x-1 hover:-translate-y-1 hover:neo-shadow-red transition-all duration-300">
+            <button className="flex items-center gap-2 px-8 py-4 bg-transparent border-2 border-white/60 text-white font-bold text-base rounded-full hover:bg-white/10 hover:-translate-y-1 transition-all duration-300">
               Get In Touch
             </button>
           </div>
         </div>
 
         {/* Right — Spline 3D Robot */}
-        <div className="relative z-10 flex-1 w-full lg:w-auto min-h-[420px] lg:min-h-screen flex items-center justify-center p-8">
-          <div className="w-full h-[600px] rounded-3xl overflow-hidden border-8 border-brand-black neo-shadow-black bg-brand-black relative">
-            <Suspense fallback={
-              <div className="flex items-center justify-center w-full h-full bg-brand-black">
-                <div className="w-16 h-16 border-8 border-brand-white border-t-brand-blue rounded-full animate-spin" />
-              </div>
-            }>
-              <Spline
-                scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-                style={{ width: '100%', height: '100%' }}
-              />
-            </Suspense>
-          </div>
+        <div className="relative z-10 flex-1 w-full lg:w-auto min-h-[420px] lg:min-h-screen flex items-center justify-center">
+          <Suspense fallback={
+            <div className="flex items-center justify-center w-full h-96">
+              <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+            </div>
+          }>
+            <Spline
+              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+              style={{ width: '100%', height: '100%', minHeight: '500px' }}
+            />
+          </Suspense>
+        </div>
+
+        {/* Scroll hint */}
+        <button
+          onClick={scrollToServices}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 text-white/60 hover:text-white/90 transition-colors"
+        >
+          <span className="text-xs font-bold uppercase tracking-widest">Scroll</span>
+          <ChevronDown size={20} className="animate-bounce" />
+        </button>
+
+        {/* Bottom wave */}
+        <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
+          <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full h-16 md:h-20">
+            <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="white" />
+          </svg>
         </div>
       </section>
 
-      <section className="bg-brand-white py-24 px-4 md:px-8 border-b-8 border-brand-black" ref={servicesRef}>
+      {/* ══════════════════════════════════════════
+          AI BUSINESS TRANSFORMATION — 3 cards
+      ══════════════════════════════════════════ */}
+      <section className="bg-white py-20 px-4 md:px-8" ref={servicesRef}>
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <div className="flex flex-col items-center justify-center mb-16">
-              <div className="inline-block bg-brand-yellow text-brand-black px-4 py-1 border-4 border-brand-black neo-shadow-black transform rotate-2 mb-6">
-                <span className="font-black uppercase tracking-[0.2em] text-sm">
-                  // AI Transformation
-                </span>
-              </div>
-              <h2 className="ubuntu-bold text-4xl md:text-5xl text-brand-black text-center leading-tight uppercase" style={{ textShadow: '2px 2px 0 #10b981' }}>
-                Transforming Business with the Power of AI
-              </h2>
-            </div>
+            <p className="text-[#00b8c4] font-black uppercase tracking-[0.3em] text-sm text-center mb-3">
+              // AI Transformation
+            </p>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-800 text-center mb-14 leading-tight">
+              Transforming Business with the Power of AI
+            </h2>
           </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {businessCards.map((card, i) => (
               <Reveal key={i} delay={i * 100}>
-                <div className="bg-brand-white border-4 border-brand-black neo-shadow-black p-8 h-full transition-transform duration-300 transform hover:-translate-y-2 group cursor-pointer">
-                  <div className="w-16 h-16 bg-brand-blue border-4 border-brand-black neo-shadow-black flex items-center justify-center mb-6 transform group-hover:-rotate-12 transition-transform">
-                    <card.icon size={32} className="text-brand-white" strokeWidth={2.5} />
+                <div className="rounded-2xl p-8 h-full border-2 border-slate-100 bg-white hover:border-[#00b8c4]/40 hover:shadow-[0_8px_40px_rgba(0,184,196,0.1)] hover:-translate-y-1 transition-all duration-300 group">
+                  <div className="w-14 h-14 rounded-2xl bg-[#e6f9fa] flex items-center justify-center mb-6 group-hover:bg-[#00b8c4] transition-colors duration-300">
+                    <card.icon size={26} className="text-[#00b8c4] group-hover:text-white transition-colors duration-300" />
                   </div>
-                  <h3 className="ubuntu-bold text-brand-black text-2xl uppercase mb-3 leading-tight">{card.title}</h3>
-                  <div className="w-12 h-1.5 bg-brand-black mb-4 group-hover:w-full transition-all duration-500"></div>
-                  <p className="text-brand-black quicksand-font text-base leading-relaxed font-bold">{card.text}</p>
+                  <h3 className="font-black text-slate-800 text-lg mb-3 leading-snug">{card.title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed font-medium">{card.text}</p>
                 </div>
               </Reveal>
             ))}
@@ -216,38 +248,35 @@ export function AIPage() {
         </div>
       </section>
 
-      <section className="py-24 px-4 md:px-8 bg-brand-blue border-b-8 border-brand-black relative">
-        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#0a0a0f 3px, transparent 3px)', backgroundSize: '32px 32px' }} />
-        
-        <div className="max-w-7xl mx-auto relative z-10">
+      {/* ══════════════════════════════════════════
+          AI SERVICES — mint background, tan/brown cards
+      ══════════════════════════════════════════ */}
+      <section className="py-20 px-4 md:px-8" style={{ background: '#e6f9fa' }}>
+        <div className="max-w-7xl mx-auto">
           <Reveal>
-            <div className="flex flex-col items-center justify-center mb-16">
-              <h2 className="ubuntu-bold text-4xl md:text-5xl lg:text-6xl text-brand-white text-center uppercase tracking-tight mb-6 leading-tight" style={{ textShadow: '4px 4px 0 #0a0a0f' }}>
-                Artificial Intelligence Services and <span className="text-brand-yellow font-black" style={{ WebkitTextStroke: '2px #0a0a0f', textShadow: '4px 4px 0 #ef4444' }}>Solutions</span>
-              </h2>
-              <p className="text-brand-black bg-brand-white p-4 border-4 border-brand-black neo-shadow-black text-center max-w-3xl mx-auto text-lg font-bold transform -rotate-1">
-                We design and build web and mobile apps as well as custom software products that rely on complex machine learning and AI models.
-              </p>
-            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-800 text-center mb-4 leading-tight">
+              Artificial Intelligence Services and Solutions to help you unlock greater value
+            </h2>
+            <p className="text-slate-500 text-center max-w-3xl mx-auto mb-14 text-base leading-relaxed font-medium">
+              We are focusing on end-to-end AI-based application development and AI consulting. We design and build web and mobile apps as well as custom software products that rely on complex machine learning and AI models and algorithms.
+            </p>
           </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {aiServices.map((svc, i) => (
               <Reveal key={i} delay={i * 80}>
                 <div
-                  className="bg-brand-white border-4 border-brand-black neo-shadow-white p-8 h-full transition-all duration-300 cursor-pointer group hover:-translate-y-2 hover:-translate-x-1"
-                  onMouseEnter={e => { e.currentTarget.style.boxShadow = `8px 8px 0 #ef4444`; }}
-                  onMouseLeave={e => { e.currentTarget.style.boxShadow = `4px 4px 0 #f8fafc`; }}
+                  className="rounded-2xl p-7 h-full hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 cursor-pointer group border-4 border-transparent hover:border-white"
+                  style={{ background: 'linear-gradient(135deg, #c8a882 0%, #d4b896 100%)' }}
                 >
-                  <div className="w-16 h-16 bg-brand-green border-4 border-brand-black neo-shadow-black flex items-center justify-center mb-6 group-hover:bg-brand-yellow transition-colors duration-300 transform group-hover:rotate-12">
-                    <svc.icon size={32} className="text-brand-black" strokeWidth={2.5} />
+                  <div className="w-12 h-12 rounded-xl bg-white/30 flex items-center justify-center mb-5 group-hover:bg-white/50 transition-colors">
+                    <svc.icon size={22} className="text-white" />
                   </div>
-                  <h3 className="ubuntu-bold text-brand-black text-2xl uppercase mb-3 leading-tight">{svc.title}</h3>
-                  <div className="w-12 h-1.5 bg-brand-black mb-4 group-hover:w-full transition-all duration-500"></div>
-                  <p className="text-brand-black quicksand-font text-base leading-relaxed font-bold mb-6">{svc.desc}</p>
-                  <span className="inline-flex items-center gap-2 px-4 py-2 border-2 border-brand-black bg-brand-red text-brand-white text-xs font-black uppercase tracking-wider transition-all duration-300 group-hover:bg-brand-black group-hover:text-brand-yellow">
-                    Learn More <ArrowRight size={14} strokeWidth={3} />
-                  </span>
+                  <h3 className="font-black text-white text-xl mb-3">{svc.title}</h3>
+                  <p className="text-white/85 text-sm leading-relaxed font-medium">{svc.desc}</p>
+                  <div className="mt-5 flex items-center gap-2 text-white font-bold text-sm group">
+                    Learn More <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
               </Reveal>
             ))}
@@ -255,66 +284,64 @@ export function AIPage() {
         </div>
       </section>
 
-      <section className="bg-brand-white py-24 px-4 md:px-8 border-b-8 border-brand-black">
+      {/* ══════════════════════════════════════════
+          AI-BASED APP DEV — white bg
+      ══════════════════════════════════════════ */}
+      <section className="bg-white py-20 px-4 md:px-8">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left */}
           <Reveal>
-            <div className="inline-block bg-brand-yellow text-brand-black px-4 py-1 border-4 border-brand-black neo-shadow-black transform -rotate-2 mb-6">
-              <span className="font-black uppercase tracking-[0.2em] text-sm">
-                // About Us
-              </span>
-            </div>
-            <h2 className="ubuntu-bold text-4xl md:text-5xl text-brand-black uppercase mb-6 leading-tight" style={{ textShadow: '2px 2px 0 #1a56db' }}>
-              Top-Ranked AI Development Company for <span className="text-brand-yellow font-black" style={{ WebkitTextStroke: '2px #0a0a0f', textShadow: '4px 4px 0 #10b981' }}>AI-Based App</span> Development Services
+            <p className="text-[#00b8c4] font-black uppercase tracking-[0.3em] text-sm mb-3">
+              // About Us
+            </p>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-800 mb-6 leading-tight">
+              Top-Ranked AI Development Company for AI-Based App Development Services
             </h2>
-            <div className="border-l-8 border-brand-black pl-6 mb-8 mt-6">
-              <p className="quicksand-font text-brand-black text-lg leading-relaxed font-bold mb-6">
-                Astniq solution is an expert AI software development company that creates futuristic and SEO-optimized AI app development solutions for businesses. We have a team of highly-skilled developers that work as per your company's needs. Whether you want to create a custom AI app from scratch or add smart features to existing ones, our top-tier AI company allows you to pick the right choice. Our experts have deep knowledge of modern technology like machine learning, natural language processing, etc.
-              </p>
-            </div>
-            <ul className="space-y-4 mb-8">
+            <p className="text-slate-500 text-base leading-relaxed font-medium mb-6">
+              Astniq solution is an expert AI software development company that creates futuristic and SEO-optimized AI app development solutions for businesses. We have a team of highly-skilled developers that work as per your company's needs. Whether you want to create a custom AI app from scratch or add smart features to existing ones, our top-tier AI company allows you to pick the right choice. Our experts have deep knowledge of modern technology like machine learning, natural language processing, etc.
+            </p>
+            <ul className="space-y-3 mb-8">
               {[
                 'Custom AI App Development',
                 'Integration of Smart Features',
                 'Advanced Machine Learning & NLP',
                 'End-to-End Automation Solutions',
               ].map((item) => (
-                <li key={item} className="flex items-center gap-4 bg-brand-white border-4 border-brand-black neo-shadow-black p-3">
-                  <div className="w-8 h-8 rounded-full bg-brand-green border-2 border-brand-black flex items-center justify-center flex-shrink-0">
-                    <CheckCircle size={18} className="text-brand-black" strokeWidth={3} />
-                  </div>
-                  <span className="text-brand-black font-black uppercase text-sm">{item}</span>
+                <li key={item} className="flex items-center gap-3">
+                  <CheckCircle size={20} className="text-[#00b8c4] flex-shrink-0" />
+                  <span className="text-slate-700 font-semibold text-sm">{item}</span>
                 </li>
               ))}
             </ul>
-            <button className="flex items-center gap-2 px-8 py-4 bg-brand-blue text-brand-white font-black uppercase border-4 border-brand-black neo-shadow-black transition-all duration-300 hover:translate-x-1 hover:translate-y-1 hover:neo-shadow-none">
-              Get Started <ArrowRight size={20} strokeWidth={3} />
+            <button className="flex items-center gap-2 px-8 py-4 bg-[#00b8c4] hover:bg-[#009aaa] text-white font-black rounded-full shadow-[0_8px_30px_rgba(0,184,196,0.35)] hover:shadow-[0_12px_40px_rgba(0,184,196,0.5)] hover:-translate-y-1 transition-all duration-300">
+              Get Started <ArrowRight size={18} />
             </button>
           </Reveal>
 
           {/* Right — decorative box */}
           <Reveal delay={150}>
-            <div className="relative transform rotate-2">
+            <div className="relative">
               <div
-                className="w-full aspect-square max-w-md mx-auto flex items-center justify-center border-8 border-brand-black neo-shadow-red bg-brand-yellow"
+                className="w-full aspect-square max-w-md mx-auto rounded-3xl flex items-center justify-center"
+                style={{ background: 'linear-gradient(135deg, #009aaa 0%, #00d4e0 100%)' }}
               >
-                <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#0a0a0f 4px, transparent 4px)', backgroundSize: '36px 36px' }} />
-                <div className="relative z-10 text-center px-10 bg-brand-white m-6 py-12 border-4 border-brand-black neo-shadow-black transform -rotate-2">
-                  <div className="text-8xl mb-6 transform hover:scale-110 transition-transform">🤖</div>
-                  <h3 className="text-brand-black ubuntu-bold text-3xl mb-4 uppercase leading-tight">AI-Based App Development Services</h3>
-                  <p className="text-brand-black quicksand-font text-base font-bold">
+                <HexPattern />
+                <div className="relative z-10 text-center px-8">
+                  <div className="text-7xl mb-4">🤖</div>
+                  <h3 className="text-white font-black text-2xl mb-2">AI-Based App Development Services</h3>
+                  <p className="text-white/80 text-sm font-medium">
                     Embrace the future of technology with our SEO-optimized AI-Based App Development services.
                   </p>
                 </div>
               </div>
               {/* Floating badge */}
-              <div className="absolute -bottom-8 -right-8 bg-brand-green border-4 border-brand-black neo-shadow-black px-6 py-4 flex items-center gap-4 transform -rotate-3">
-                <div className="w-12 h-12 bg-brand-white border-4 border-brand-black flex items-center justify-center transform -rotate-6">
-                  <Bot size={24} className="text-brand-black" strokeWidth={2.5} />
+              <div className="absolute -bottom-5 -right-5 bg-white rounded-2xl shadow-xl px-6 py-4 border border-slate-100 flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#e6f9fa] rounded-xl flex items-center justify-center">
+                  <Bot size={20} className="text-[#00b8c4]" />
                 </div>
                 <div>
-                  <div className="text-brand-black ubuntu-bold text-xs uppercase tracking-wider mb-1">AI Models</div>
-                  <div className="text-brand-white ubuntu-bold text-2xl" style={{ textShadow: '2px 2px 0 #0a0a0f' }}>150+ Deployed</div>
+                  <div className="text-slate-800 font-black text-sm">AI Models</div>
+                  <div className="text-[#00b8c4] font-black text-lg">150+ Deployed</div>
                 </div>
               </div>
             </div>
@@ -322,26 +349,25 @@ export function AIPage() {
         </div>
       </section>
 
-      <section className="py-24 px-4 md:px-8 border-b-8 border-brand-black bg-brand-green relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #0a0a0f 0, #0a0a0f 4px, transparent 4px, transparent 16px)' }} />
-        
-        <div className="max-w-6xl mx-auto relative z-10">
+      {/* ══════════════════════════════════════════
+          WHY CHOOSE US — mint bg with checklist
+      ══════════════════════════════════════════ */}
+      <section className="py-20 px-4 md:px-8" style={{ background: '#e6f9fa' }}>
+        <div className="max-w-6xl mx-auto">
           <Reveal>
-            <div className="bg-brand-white border-4 border-brand-black neo-shadow-black p-6 md:p-8 mb-16 transform -rotate-1 max-w-4xl mx-auto">
-              <h2 className="ubuntu-bold text-4xl md:text-5xl text-brand-black text-center uppercase leading-tight" style={{ textShadow: '2px 2px 0 #f59e0b' }}>
-                Why Choose us as your <span className="text-brand-white" style={{ WebkitTextStroke: '2px #0a0a0f', textShadow: '4px 4px 0 #1a56db' }}>AI Solution Provider?</span>
-              </h2>
-            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-800 text-center mb-14 leading-tight">
+              Why Choose us as your AI Solution Provider?
+            </h2>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {whyChoose.map((reason, i) => (
               <Reveal key={i} delay={i * 80}>
-                <div className="bg-brand-white border-4 border-brand-black neo-shadow-black p-6 h-full flex items-start gap-4 transition-transform duration-300 hover:translate-x-1 hover:-translate-y-1 hover:neo-shadow-red group cursor-pointer">
-                  <div className="w-12 h-12 border-4 border-brand-black bg-brand-yellow flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:rotate-12 transition-transform">
-                    <CheckCircle size={24} className="text-brand-black" strokeWidth={2.5} />
+                <div className="bg-white rounded-2xl p-6 h-full border-2 border-[#00b8c4]/15 hover:border-[#00b8c4]/40 hover:shadow-[0_8px_30px_rgba(0,184,196,0.1)] hover:-translate-y-1 transition-all duration-300 flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-[#e6f9fa] flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <CheckCircle size={20} className="text-[#00b8c4]" />
                   </div>
-                  <p className="text-brand-black quicksand-font font-black text-base md:text-lg leading-relaxed">{reason}</p>
+                  <p className="text-slate-700 font-semibold text-sm leading-relaxed">{reason}</p>
                 </div>
               </Reveal>
             ))}
@@ -352,38 +378,34 @@ export function AIPage() {
       {/* ══════════════════════════════════════════
           WHOM AI REALLY HELPS — white bg
       ══════════════════════════════════════════ */}
-      <section className="bg-brand-white py-24 px-4 md:px-8 border-b-8 border-brand-black">
+      <section className="bg-white py-20 px-4 md:px-8">
         <div className="max-w-6xl mx-auto">
           <Reveal>
-            <div className="flex flex-col items-center justify-center mb-16">
-              <div className="inline-block bg-brand-blue text-brand-white px-4 py-1 border-4 border-brand-black neo-shadow-black transform -rotate-1 mb-6">
-                <span className="font-black uppercase tracking-[0.2em] text-sm">
-                  // Industry Impact
-                </span>
-              </div>
-              <h2 className="ubuntu-bold text-4xl md:text-5xl text-brand-black text-center uppercase leading-tight" style={{ textShadow: '2px 2px 0 #ef4444' }}>
-                Whom <span className="text-brand-yellow font-black" style={{ WebkitTextStroke: '2px #0a0a0f', textShadow: '4px 4px 0 #10b981' }}>AI</span> Really Helps
-              </h2>
-            </div>
+            <p className="text-[#00b8c4] font-black uppercase tracking-[0.3em] text-sm text-center mb-3">
+              // Industry Impact
+            </p>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-800 text-center mb-14 leading-tight">
+              Whom AI Really Helps
+            </h2>
           </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {industries.map((ind, i) => (
               <Reveal key={i} delay={i * 100}>
                 <div
-                  className="bg-brand-white border-4 border-brand-black neo-shadow-black p-8 h-full transition-transform duration-300 transform hover:-translate-y-2 group cursor-pointer"
+                  className="rounded-2xl p-7 h-full border-2 border-dashed hover:-translate-y-2 transition-all duration-300"
+                  style={{ background: ind.bg, borderColor: ind.border }}
                 >
                   <div
-                    className="w-16 h-16 border-4 border-brand-black neo-shadow-black flex items-center justify-center mb-6 transform group-hover:rotate-12 transition-transform"
-                    style={{ background: ind.color }}
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5"
+                    style={{ background: `${ind.color}20` }}
                   >
-                    <ind.icon size={32} style={{ color: C.white }} strokeWidth={2.5} />
+                    <ind.icon size={28} style={{ color: ind.color }} />
                   </div>
-                  <h3 className="ubuntu-bold text-brand-black text-2xl uppercase mb-3 leading-tight">
+                  <h3 className="font-black text-slate-800 text-xl mb-3" style={{ color: ind.color }}>
                     {ind.title}
                   </h3>
-                  <div className="w-12 h-1.5 bg-brand-black mb-4 group-hover:w-full transition-all duration-500"></div>
-                  <p className="text-brand-black quicksand-font text-base leading-relaxed font-bold">{ind.text}</p>
+                  <p className="text-slate-600 text-sm leading-relaxed font-medium">{ind.text}</p>
                 </div>
               </Reveal>
             ))}
@@ -391,33 +413,35 @@ export function AIPage() {
         </div>
       </section>
 
-      <section id="contact" className="py-24 px-4 md:px-8 relative overflow-hidden bg-brand-black border-b-8 border-brand-black">
-        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#f8fafc 3px, transparent 3px)', backgroundSize: '32px 32px' }} />
-        
-        <div className="max-w-6xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      {/* ══════════════════════════════════════════
+          GET IN TOUCH
+      ══════════════════════════════════════════ */}
+      <section id="contact" className="py-20 px-4 md:px-8 relative overflow-hidden" style={{ background: '#e6f9fa' }}>
+        <HexPattern />
+        <div className="max-w-6xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left info */}
           <Reveal>
-            <h2 className="ubuntu-bold text-5xl md:text-6xl text-brand-white uppercase tracking-tight mb-6 leading-tight" style={{ textShadow: '4px 4px 0 #1a56db' }}>
-              Get In <span className="text-brand-yellow" style={{ WebkitTextStroke: '2px #0a0a0f', textShadow: '4px 4px 0 #ef4444' }}>Touch</span>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-800 mb-4 leading-tight">
+              Get In Touch
             </h2>
-            <p className="text-brand-black bg-brand-white p-6 border-4 border-brand-black neo-shadow-red text-lg font-bold leading-relaxed mb-10 transform rotate-1">
+            <p className="text-slate-600 text-base font-medium leading-relaxed mb-8">
               Questions or need support? Contact our seasoned IT consultants for tailored solutions that enhance your digital footprint. Your success is our mission!
             </p>
-            <div className="space-y-6">
+            <div className="space-y-5">
               {[
-                { icon: Phone, label: '99789 71636', href: 'tel:9978971636', accent: C.white },
-                { icon: Mail, label: 'info@astniq.com', href: 'mailto:info@astniq.com', accent: C.green },
-                { icon: MapPin, label: '503, Sun Avenue One, near Shyamal, Ambawadi, Ahmedabad, Gujarat', href: '#', accent: C.yellow },
-              ].map(({ icon: Icon, label, href, accent }) => (
+                { icon: Phone, label: '99789 71636', href: 'tel:9978971636' },
+                { icon: Mail, label: 'info@astniq.com', href: 'mailto:info@astniq.com' },
+                { icon: MapPin, label: '503, Sun Avenue One, near Shyamal, Ambawadi, Ahmedabad, Gujarat', href: '#' },
+              ].map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
                   href={href}
                   className="flex items-start gap-4 group"
                 >
-                  <div className="w-14 h-14 border-4 border-brand-black flex items-center justify-center flex-shrink-0 transition-transform duration-300 transform group-hover:-rotate-12" style={{ background: accent }}>
-                    <Icon size={24} className="text-brand-black" strokeWidth={2.5} />
+                  <div className="w-11 h-11 rounded-xl bg-[#00b8c4]/15 flex items-center justify-center flex-shrink-0 group-hover:bg-[#00b8c4] transition-colors">
+                    <Icon size={20} className="text-[#00b8c4] group-hover:text-white transition-colors" />
                   </div>
-                  <span className="text-brand-white font-black uppercase text-base leading-relaxed mt-3 px-4 py-1 border-2 border-transparent group-hover:bg-brand-blue group-hover:border-brand-black transition-all">{label}</span>
+                  <span className="text-slate-700 font-semibold text-sm leading-relaxed mt-2.5 group-hover:text-[#007a88] transition-colors">{label}</span>
                 </a>
               ))}
             </div>
@@ -425,21 +449,20 @@ export function AIPage() {
 
           {/* Right form */}
           <Reveal delay={150}>
-            <div className="bg-brand-blue p-8 md:p-10 border-4 border-brand-black neo-shadow-white transform -rotate-1">
-              <h3 className="ubuntu-bold text-3xl text-brand-white uppercase mb-8" style={{ textShadow: '2px 2px 0 #0a0a0f' }}>Hello ASTNIQ</h3>
+            <div className="bg-white rounded-3xl shadow-2xl p-8 border border-slate-100">
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div>
                   <input
                     type="text"
                     placeholder="First Name"
-                    className="w-full px-5 py-4 bg-brand-white text-brand-black text-sm font-black uppercase placeholder-brand-black/50 border-4 border-brand-black neo-shadow-black outline-none focus:translate-x-1 focus:translate-y-1 focus:neo-shadow-none transition-all"
+                    className="w-full px-4 py-3 rounded-xl border-2 border-slate-100 focus:border-[#00b8c4] bg-slate-50 outline-none text-slate-800 font-medium text-sm transition-colors"
                   />
                 </div>
                 <div>
                   <input
                     type="text"
                     placeholder="Last Name"
-                    className="w-full px-5 py-4 bg-brand-white text-brand-black text-sm font-black uppercase placeholder-brand-black/50 border-4 border-brand-black neo-shadow-black outline-none focus:translate-x-1 focus:translate-y-1 focus:neo-shadow-none transition-all"
+                    className="w-full px-4 py-3 rounded-xl border-2 border-slate-100 focus:border-[#00b8c4] bg-slate-50 outline-none text-slate-800 font-medium text-sm transition-colors"
                   />
                 </div>
               </div>
@@ -447,26 +470,26 @@ export function AIPage() {
                 <input
                   type="email"
                   placeholder="Email"
-                  className="w-full px-5 py-4 bg-brand-white text-brand-black text-sm font-black uppercase placeholder-brand-black/50 border-4 border-brand-black neo-shadow-black outline-none focus:translate-x-1 focus:translate-y-1 focus:neo-shadow-none transition-all"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-slate-100 focus:border-[#00b8c4] bg-slate-50 outline-none text-slate-800 font-medium text-sm transition-colors"
                 />
                 <input
                   type="tel"
                   placeholder="Phone no."
-                  className="w-full px-5 py-4 bg-brand-white text-brand-black text-sm font-black uppercase placeholder-brand-black/50 border-4 border-brand-black neo-shadow-black outline-none focus:translate-x-1 focus:translate-y-1 focus:neo-shadow-none transition-all"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-slate-100 focus:border-[#00b8c4] bg-slate-50 outline-none text-slate-800 font-medium text-sm transition-colors"
                 />
               </div>
               <input
                 type="text"
                 placeholder="Subject"
-                className="w-full px-5 py-4 mb-4 bg-brand-white text-brand-black text-sm font-black uppercase placeholder-brand-black/50 border-4 border-brand-black neo-shadow-black outline-none focus:translate-x-1 focus:translate-y-1 focus:neo-shadow-none transition-all"
+                className="w-full px-4 py-3 rounded-xl border-2 border-slate-100 focus:border-[#00b8c4] bg-slate-50 outline-none text-slate-800 font-medium text-sm transition-colors mb-4"
               />
               <textarea
                 placeholder="Project Description"
-                rows={5}
-                className="w-full px-5 py-4 mb-8 bg-brand-white text-brand-black text-sm font-black uppercase placeholder-brand-black/50 border-4 border-brand-black neo-shadow-black outline-none resize-none focus:translate-x-1 focus:translate-y-1 focus:neo-shadow-none transition-all"
+                rows={4}
+                className="w-full px-4 py-3 rounded-xl border-2 border-slate-100 focus:border-[#00b8c4] bg-slate-50 outline-none text-slate-800 font-medium text-sm transition-colors mb-5 resize-none"
               />
-              <button className="w-full flex items-center justify-center gap-3 px-8 py-5 font-black uppercase tracking-widest text-lg bg-brand-yellow text-brand-black border-4 border-brand-black neo-shadow-black transition-all duration-300 hover:translate-x-1 hover:translate-y-1 hover:neo-shadow-none">
-                Submit Message <Send size={24} strokeWidth={3} />
+              <button className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-[#00b8c4] hover:bg-[#009aaa] text-white font-black rounded-xl shadow-[0_8px_30px_rgba(0,184,196,0.35)] hover:shadow-[0_12px_40px_rgba(0,184,196,0.5)] hover:-translate-y-0.5 transition-all duration-300">
+                Submit Button <Send size={18} />
               </button>
             </div>
           </Reveal>

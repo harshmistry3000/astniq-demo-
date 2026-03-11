@@ -1,351 +1,411 @@
-import React, { useState } from 'react';
-import { 
-  Globe, 
-  Code, 
-  Smartphone, 
-  Layout, 
-  ChevronRight, 
-  PhoneCall,
-  CheckCircle2,
-  Cpu
-} from 'lucide-react';
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowRight, Phone, Mail, MapPin, Send } from 'lucide-react';
+import createGlobe from 'cobe';
 
-const LiquidEther = React.lazy(() => import('../components/LiquidEther'));
-const Floating3D = React.lazy(() => import('../components/Floating3D'));
+/* ═══════════════════════════════════════════════
+   BRAND COLORS
+═══════════════════════════════════════════════ */
+const C = {
+  blue:   '#1a56db',
+  blueLight: '#3b82f6',
+  dark:   '#0f172a',
+  orange: '#f97316',
+  red:    '#ef4444',
+  bgGrid: '#f8fafc',
+};
 
-export const TechnologiesPage = () => {
-  const [activeTab, setActiveTab] = useState('web');
+/* ═══════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════ */
 
-  const colors = {
-    blue: 'bg-[#2D5BFF]',
-    yellow: 'bg-[#FFD335]',
-    green: 'bg-[#00D285]',
-    orange: 'bg-[#FF8A3D]',
-    red: 'bg-[#FF4D4D]',
-    dark: 'bg-[#1A1A1A]',
-    light: 'bg-[#F4F7FE]'
+const technologies = {
+  "Web Development": [
+    { name: "React Js", logo: "https://cdn.simpleicons.org/react" },
+    { name: "Node Js",  logo: "https://cdn.simpleicons.org/nodedotjs" },
+    { name: "Angular",  logo: "https://cdn.simpleicons.org/angular" },
+    { name: "Vue Js",   logo: "https://cdn.simpleicons.org/vuedotjs" },
+    { name: "Laravel",  logo: "https://cdn.simpleicons.org/laravel" },
+    { name: "PHP",      logo: "https://cdn.simpleicons.org/php" },
+  ],
+  "App Development": [
+    { name: "Flutter",  logo: "https://cdn.simpleicons.org/flutter" },
+    { name: "React Native", logo: "https://cdn.simpleicons.org/react" },
+    { name: "Android",  logo: "https://cdn.simpleicons.org/android" },
+    { name: "iOS",      logo: "https://cdn.simpleicons.org/apple" },
+  ],
+  "CMS Development": [
+    { name: "WordPress", logo: "https://cdn.simpleicons.org/wordpress" },
+    { name: "Shopify",   logo: "https://cdn.simpleicons.org/shopify" },
+    { name: "Magento",   logo: "https://cdn.simpleicons.org/magento" },
+    { name: "Webflow",   logo: "https://cdn.simpleicons.org/webflow" },
+  ]
+};
+
+const workSteps = [
+  {
+    num: '01',
+    title: 'Request gathering',
+    desc: 'Requirement gathering & understanding of project goal & scope.',
+    color: C.blue,
+    align: 'right'
+  },
+  {
+    num: '02',
+    title: 'Planning',
+    desc: 'Brainstorming, project architecture, platform & architecture design.',
+    color: C.orange,
+    align: 'left'
+  },
+  {
+    num: '03',
+    title: 'Design & Architecture',
+    desc: 'Creating wireframes, interactive prototypes, and system blueprints.',
+    color: C.blueLight,
+    align: 'right'
+  },
+  {
+    num: '04',
+    title: 'Content & Functionality',
+    desc: 'UI/UX design, frontend & backend architecture, database integration.',
+    color: C.blue,
+    align: 'left'
+  },
+  {
+    num: '05',
+    title: 'Testing & Launching',
+    desc: 'Quality assurance, user acceptance testing, and final deployment.',
+    color: C.orange,
+    align: 'right'
+  }
+];
+
+/* ═══════════════════════════════════════════════
+   REVEAL WRAPPER
+═══════════════════════════════════════════════ */
+function Reveal({ children, delay = 0, from = 'bottom' }) {
+  const ref = useRef(null);
+  const [v, setV] = useState(false);
+  useEffect(() => {
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) setV(true); }, { threshold: 0.1 });
+    if (ref.current) io.observe(ref.current);
+    return () => io.disconnect();
+  }, []);
+  const transforms = {
+    bottom: v ? 'translateY(0)' : 'translateY(32px)',
+    left:   v ? 'translateX(0)' : 'translateX(-32px)',
+    right:  v ? 'translateX(0)' : 'translateX(32px)',
   };
+  return (
+    <div ref={ref} style={{ opacity: v ? 1 : 0, transform: transforms[from], transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms` }}>
+      {children}
+    </div>
+  );
+}
 
-  const tabs = [
-    { id: 'web', label: 'Web Development' },
-    { id: 'app', label: 'App Development' },
-    { id: 'cms', label: 'CMS Development' }
-  ];
+/* ═══════════════════════════════════════════════
+   STARRY NETWORK BG
+═══════════════════════════════════════════════ */
+function StarryNetworkBg() {
+  return (
+    <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="stars" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+          <circle cx="10" cy="10" r="1.5" fill="white" opacity="0.8" />
+          <circle cx="40" cy="40" r="1" fill="white" opacity="0.4" />
+          <circle cx="70" cy="20" r="2" fill="white" opacity="0.6" />
+          <circle cx="80" cy="80" r="1.5" fill="white" opacity="0.5" />
+          <circle cx="20" cy="70" r="1" fill="white" opacity="0.3" />
+        </pattern>
+        <linearGradient id="grid-fade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="transparent" />
+          <stop offset="50%" stopColor="rgba(255,255,255,0.1)" />
+          <stop offset="100%" stopColor="transparent" />
+        </linearGradient>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#stars)" />
+      {/* Network lines over stars */}
+      <path d="M0,20 L100,80 M50,0 L50,100 M100,20 L0,80" stroke="url(#grid-fade)" strokeWidth="1" opacity="0.5" />
+      <path d="M0,40 L100,60 M0,60 L100,40" stroke="url(#grid-fade)" strokeWidth="1" opacity="0.5" />
+    </svg>
+  );
+}
 
-  const processSteps = [
-    { num: '01', title: 'Request Gathering', desc: 'Requirement analysis to understand the user scenarios and goals for your business.', color: colors.blue },
-    { num: '02', title: 'Planning', desc: 'Understanding your project architecture to provide solutions for the challenges.', color: colors.orange },
-    { num: '03', title: 'Designing', desc: 'Conceptualizing and designing for the solution.', color: colors.green },
-    { num: '04', title: 'Content & Functionality', desc: 'Adding features and content for an interactive and functional solution.', color: colors.blue },
-    { num: '05', title: 'Testing & Launching', desc: 'Testing for optimal quality and bug-free delivery to your target audience.', color: colors.red },
-  ];
+/* ═══════════════════════════════════════════════
+   DOTTED BG
+═══════════════════════════════════════════════ */
+function DottedBg() {
+  return (
+    <svg className="absolute inset-0 w-full h-full opacity-[0.05] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="dot" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="2" fill="#000" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#dot)" />
+    </svg>
+  );
+}
+
+/* ═══════════════════════════════════════════════
+   SIMPLE GLOBE
+═══════════════════════════════════════════════ */
+function StaticGlobe() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    let phi = 0;
+    if (!canvasRef.current) return;
+    
+    // Create a very blue, digital-looking globe
+    const globe = createGlobe(canvasRef.current, {
+      devicePixelRatio: 2,
+      width: 400 * 2,
+      height: 400 * 2,
+      phi: 0,
+      theta: 0.1,
+      dark: 0,
+      diffuse: 1.2,
+      mapSamples: 16000,
+      mapBrightness: 3,
+      baseColor: [0.05, 0.2, 0.4], // Dark blue ocean
+      markerColor: [0.2, 0.8, 1],
+      glowColor: [0.1, 0.5, 1],
+      markers: [],
+      onRender: (state) => {
+        state.phi = phi;
+        phi += 0.003;
+      },
+    });
+
+    return () => globe.destroy();
+  }, []);
 
   return (
-    <>
-      <style>{`
-        .bg-grid { background-image: radial-gradient(rgba(0,0,0,0.1) 1px, transparent 1px); background-size: 30px 30px; }
-      `}</style>
-      
-      {/* Hero Section */}
-      <section className="relative py-32 md:py-48 px-6 bg-transparent overflow-hidden border-b-8 border-black shadow-[0_8px_0_0_rgba(0,0,0,1)] flex items-center min-h-[90vh]">
-        {/* Liquid Ether Background */}
-        <div className="absolute inset-0 z-0">
-          <React.Suspense fallback={null}>
-            <LiquidEther
-              colors={[ '#FFD335', '#FF4D4D', '#00D285' ]}
-              mouseForce={20}
-              cursorSize={100}
-              isViscous
-              viscous={30}
-              iterationsViscous={32}
-              iterationsPoisson={32}
-              resolution={0.5}
-              isBounce={false}
-              autoDemo
-              autoSpeed={0.5}
-              autoIntensity={2.2}
-              takeoverDuration={0.25}
-              autoResumeDelay={3000}
-              autoRampDuration={0.6}
-            />
-          </React.Suspense>
+    <div className="w-full max-w-[400px] aspect-square relative flex items-center justify-center mx-auto">
+      <div className="absolute inset-0 rounded-full bg-blue-500/10 blur-3xl animate-pulse" />
+      <canvas
+        ref={canvasRef}
+        style={{ width: 400, height: 400, maxWidth: "100%", aspectRatio: 1 }}
+      />
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════
+   MAIN PAGE
+═══════════════════════════════════════════════ */
+export function TechnologiesPage() {
+  const [activeTab, setActiveTab] = useState("Web Development");
+
+  return (
+    <div className="w-full overflow-x-hidden font-sans">
+
+      {/* ══════════════════════════════════════════
+          HERO — Dark blue tech pattern
+      ══════════════════════════════════════════ */}
+      <section
+        className="relative w-full min-h-[55vh] flex flex-col items-center justify-center text-center overflow-hidden pt-32 pb-20 px-4"
+        style={{ background: `linear-gradient(135deg, #091a45 0%, #173880 50%, #091a45 100%)` }}
+      >
+        <StarryNetworkBg />
+
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-6 leading-tight">
+            Our Technologies
+          </h1>
+
+          <p className="text-blue-100 text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed font-medium">
+            Our skilled team harnesses these innovative technologies to craft robust, scalable, and immersive software solutions that drive businesses forward.
+          </p>
         </div>
 
-        <div className="max-w-7xl mx-auto text-center space-y-6 relative z-10 w-full pointer-events-none">
-          <div className="inline-flex items-center gap-2 px-6 py-2 border-[3px] border-black bg-white font-black uppercase text-sm shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] pointer-events-auto">
-            <Cpu size={16} strokeWidth={3} /> Innovation Stack
-          </div>
-          
-          <h1 className="text-6xl md:text-8xl lg:text-[110px] font-black leading-none tracking-tighter uppercase whitespace-nowrap overflow-visible pointer-events-auto">
-            <span className="text-[#1A1A1A]">Our</span> 
-            {' '}
-            <span className="text-[#2D5BFF] relative inline-block">
-              Technologies
-              {/* Thick yellow underline mimicking the screenshot */}
-              <span className="absolute -bottom-1 left-0 w-[100%] h-3 bg-[#FFD335] -z-10"></span>
-            </span>
-          </h1>
-          
-          <div className="mt-12 max-w-4xl mx-auto bg-white border-[6px] border-black p-8 md:p-10 shadow-[10px_10px_0_0_rgba(0,0,0,1)] pointer-events-auto">
-            <p className="text-xl md:text-3xl font-bold leading-snug">
-              Our skilled team harnesses these innovative technologies to craft robust, scalable, and immersive software solutions that drive businesses forward.
-            </p>
-          </div>
+        {/* Decorative light beam at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-300 to-transparent opacity-50 shadow-[0_0_20px_#93c5fd]" />
+      </section>
+
+      {/* ══════════════════════════════════════════
+          NEXT GEN TECHNOLOGY
+      ══════════════════════════════════════════ */}
+      <section className="py-24 px-4 md:px-8 bg-white">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Globe */}
+          <Reveal from="left">
+            <StaticGlobe />
+          </Reveal>
+
+          {/* Right Text */}
+          <Reveal from="right" delay={150}>
+            <div className="max-w-lg">
+              <h3 className="text-xl md:text-2xl font-black text-[#00b8c4] mb-3">
+                Next Generation Technology
+              </h3>
+              <p className="text-3xl md:text-4xl font-extrabold text-[#111827] leading-tight text-balance">
+                Innovative and comprehensive solutions developed with the most modern and diverse technologies.
+              </p>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Next Generation Technology */}
-      <section className="py-24 px-6 bg-[#FFD335] border-t-8 border-black relative overflow-hidden">
-        <React.Suspense fallback={null}>
-          <Floating3D shapeType="torus" color="#FF8A3D" className="absolute -top-10 -right-10 w-96 h-96 opacity-40 mix-blend-multiply" rotateSpeed={[0.02, 0.04]} />
-        </React.Suspense>
-        
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10"
-        >
-          <div className={`aspect-square rounded-full border-8 border-black ${colors.blue} flex items-center justify-center p-12 relative overflow-hidden shadow-[16px_16px_0_0_rgba(0,0,0,1)] bg-white`}>
-            {/* Abstract Globe representation */}
-            <Globe className="w-full h-full text-white opacity-40 mix-blend-overlay animate-pulse" />
-            <div className="absolute inset-0 bg-grid opacity-30 mix-blend-overlay"></div>
-            <div className="absolute inset-0 border-[16px] border-black border-dashed rounded-full animate-[spin_20s_linear_infinite] opacity-20"></div>
-          </div>
-          
-          <div className="space-y-8">
-            <div>
-              <span className="font-black text-blue-600 uppercase tracking-widest text-lg italic">// Next Generation Technology</span>
-              <h2 className="text-4xl md:text-5xl font-black uppercase leading-tight mt-4">
-                Innovative and comprehensive solutions developed with the most <span className={`${colors.yellow} px-2 border-2 border-black`}>modern</span> and diverse technologies.
+      {/* ══════════════════════════════════════════
+          TECHNOLOGY WE USE (TABS)
+      ══════════════════════════════════════════ */}
+      <section className="py-20 px-4 md:px-8 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <Reveal>
+            <h2 className="text-center text-3xl md:text-4xl font-black text-[#1a56db] mb-12">
+              Technology we use
+            </h2>
+          </Reveal>
+
+          {/* Tabs */}
+          <Reveal delay={100}>
+            <div className="flex flex-wrap items-center justify-center gap-6 md:gap-14 mb-16">
+              {Object.keys(technologies).map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`text-lg font-bold transition-all duration-300 ${
+                    activeTab === tab 
+                      ? 'text-[#ef4444] border-b-2 border-[#ef4444] pb-1' 
+                      : 'text-[#ef4444]/60 hover:text-[#ef4444]'
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+          </Reveal>
+
+          {/* Logos Grid */}
+          <Reveal delay={200}>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 md:gap-8 justify-items-center">
+              {technologies[activeTab].map((tech, i) => (
+                <div 
+                  key={tech.name} 
+                  className="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-slate-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 bg-white w-full h-32 group"
+                  style={{ animation: `fadeIn 0.5s ease ${i * 0.1}s forwards`, opacity: 0 }}
+                >
+                  <img 
+                    src={tech.logo} 
+                    alt={tech.name} 
+                    className="w-12 h-12 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" 
+                  />
+                  <span className="text-sm font-bold text-slate-700">{tech.name}</span>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        `}} />
+      </section>
+
+      {/* ══════════════════════════════════════════
+          HOW WE WORK
+      ══════════════════════════════════════════ */}
+      <section className="py-24 px-4 md:px-8 bg-white relative overflow-hidden">
+        <div className="max-w-4xl mx-auto relative">
+          <Reveal>
+            <div className="text-center mb-24 relative inline-block left-1/2 -translate-x-1/2">
+              <h2 className="text-3xl md:text-5xl font-black text-[#1a56db] pb-2 border-b-4 border-[#1a56db] inline-block">
+                How we work
               </h2>
             </div>
-            
-            <ul className="space-y-6">
-              {[
-                "We combine our extensive experience and specialized skills to deliver a wide range of exceptional software solutions.",
-                "Our custom application design and development services are tailored to address your unique business requirements.",
-                "We excel in web development, creating seamless web and dynamic web applications. We optimize and test across platforms for optimal performance. Our team is dedicated to rigorous development, designing native and cross-platform applications for iOS and Android platforms.",
-                "We have a deep understanding of cloud technologies, and offer end-to-end cloud solutions. Quality assurance and testing are at the core of our process, ensuring that every project meets the highest standards of excellence. With our expertise, we unlock the potential of technology to deliver innovative solutions that drive you forward."
-              ].map((text, i) => (
-                <li key={i} className="flex gap-4 items-start group">
-                  <div className={`mt-1 flex-shrink-0 w-8 h-8 rounded-full border-2 border-black ${colors.green} flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                    <CheckCircle2 size={16} />
+          </Reveal>
+
+          {/* Timeline Center Line */}
+          <div className="absolute top-40 bottom-10 left-12 md:left-1/2 w-1 bg-slate-100 rounded-full md:-translate-x-1/2 z-0" />
+
+          {/* Staggered Vertical Steps */}
+          <div className="space-y-12 md:space-y-24 relative z-10 pl-24 md:pl-0">
+            {workSteps.map((step, i) => {
+              const isLeft = step.align === 'left';
+              return (
+                <div key={step.num} className={`flex flex-col md:flex-row items-center justify-start ${isLeft ? 'md:justify-start' : 'md:justify-end'} relative`}>
+                  
+                  {/* Circle Number (absolute positioned for mobile to left border, center for desktop) */}
+                  <div 
+                    className="absolute left-[-80px] md:left-1/2 w-16 h-16 rounded-full flex items-center justify-center text-white font-black text-xl shadow-lg border-4 bg-white z-20 md:-translate-x-1/2"
+                    style={{ borderColor: `${step.color}30` }}
+                  >
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: step.color }}>
+                      {step.num}
+                    </div>
                   </div>
-                  <p className="font-bold text-lg leading-snug">{text}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </motion.div>
-      </section>
 
-      {/* Technology We Use - Tabs */}
-      <section className="py-24 px-6 bg-blue-600 border-y-8 border-black overflow-hidden relative">
-        <React.Suspense fallback={null}>
-          <Floating3D shapeType="icosahedron" color="#ffffff" className="absolute top-0 right-0 w-80 h-80 opacity-20 mix-blend-overlay" rotateSpeed={[0.01, 0.01]} />
-        </React.Suspense>
-        
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="max-w-7xl mx-auto space-y-16 relative z-10"
-        >
-          <div className="text-center space-y-4">
-            <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white drop-shadow-[4px_4px_0_rgba(0,0,0,1)]">Technology we use</h2>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-4 border-4 border-black p-4 bg-white shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 min-w-[200px] px-8 py-4 font-black uppercase text-lg border-4 border-transparent transition-all ${
-                  activeTab === tab.id 
-                    ? `border-black ${colors.yellow} shadow-[4px_4px_0_0_rgba(0,0,0,1)] -translate-y-1` 
-                    : 'text-red-500 hover:border-black hover:bg-gray-100'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="border-4 border-black bg-white p-12 min-h-[300px] shadow-[12px_12px_0_0_rgba(0,0,0,1)] relative overflow-hidden">
-            {activeTab === 'web' && (
-              <div className="grid md:grid-cols-4 gap-8 relative z-10">
-                {['React', 'Angular', 'Vue.js', 'Node.js', 'Python', 'PHP', 'HTML5 & CSS3', 'JavaScript'].map((tech, i) => (
-                  <div key={i} className="border-4 border-black p-6 font-black uppercase text-center hover:bg-black hover:text-white transition-colors cursor-pointer flex flex-col items-center gap-4">
-                    <Code size={32} />
-                    {tech}
-                  </div>
-                ))}
-              </div>
-            )}
-            {activeTab === 'app' && (
-              <div className="grid md:grid-cols-4 gap-8 relative z-10">
-                 {['iOS Native', 'Android Native', 'Flutter', 'React Native', 'Swift', 'Kotlin', 'Ionic', 'Java'].map((tech, i) => (
-                  <div key={i} className={`border-4 border-black p-6 font-black uppercase text-center hover:bg-red-500 hover:text-white transition-colors cursor-pointer flex flex-col items-center gap-4`}>
-                    <Smartphone size={32} />
-                    {tech}
-                  </div>
-                ))}
-              </div>
-            )}
-            {activeTab === 'cms' && (
-              <div className="grid md:grid-cols-4 gap-8 relative z-10">
-                 {['WordPress', 'Shopify', 'Magento', 'Drupal', 'Joomla', 'Wix', 'Webflow', 'Contentful'].map((tech, i) => (
-                  <div key={i} className={`border-4 border-black p-6 font-black uppercase text-center hover:bg-blue-600 hover:text-white transition-colors cursor-pointer flex flex-col items-center gap-4`}>
-                    <Layout size={32} />
-                    {tech}
-                  </div>
-                ))}
-              </div>
-            )}
-            
-            <div className={`absolute -bottom-20 -right-20 w-64 h-64 ${colors.yellow} border-8 border-black rounded-full mix-blend-multiply opacity-20 pointer-events-none`}></div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* How we work */}
-      <section className="py-24 px-6 bg-white relative overflow-hidden">
-        <React.Suspense fallback={null}>
-          <Floating3D shapeType="box" color="#00D285" className="absolute top-1/2 left-10 w-64 h-64 opacity-20 -translate-y-1/2" rotateSpeed={[0.03, 0.015]} />
-        </React.Suspense>
-        
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-4xl mx-auto relative z-10"
-        >
-          <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter underline decoration-blue-500 text-blue-800">How we work</h2>
-          </div>
-
-          <div className="space-y-6 relative before:absolute before:inset-0 before:ml-28 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-2 before:bg-black before:z-0">
-            {processSteps.map((step, idx) => (
-              <div key={idx} className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active`}>
-                <div className="hidden md:flex flex-1"></div>
-                
-                {/* Number Badge */}
-                <div className={`z-10 absolute left-28 md:relative md:left-auto flex items-center justify-center w-16 h-16 rounded-full border-4 border-black ${step.color} shadow-[4px_4px_0_0_rgba(0,0,0,1)] -translate-x-1/2 md:translate-x-0 group-hover:scale-110 transition-transform font-black text-2xl text-white`}>
-                  {step.num}
+                  {/* Content Box */}
+                  <Reveal delay={i * 100} from={isLeft ? 'left' : 'right'}>
+                    <div 
+                      className="bg-white p-8 rounded-xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-xl transition-shadow w-full md:w-[400px] xl:w-[450px]"
+                    >
+                      <h3 className="text-xl font-bold mb-3" style={{ color: step.color }}>{step.title}</h3>
+                      <p className="text-slate-600 font-medium leading-relaxed">{step.desc}</p>
+                    </div>
+                  </Reveal>
+                  
                 </div>
-                
-                <div className="w-[calc(100%-8rem)] md:w-[calc(50%-4rem)] p-6 bg-white border-4 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] group-hover:-translate-y-2 transition-transform relative">
-                  {/* Small decorative accent line */}
-                  <div className={`absolute top-0 left-0 w-2 h-full ${step.color}`}></div>
-                  <h3 className="font-black text-2xl uppercase text-blue-600 mb-2 pl-4">{step.title}</h3>
-                  <p className="font-bold text-gray-700 pl-4">{step.desc}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
-        </motion.div>
+        </div>
       </section>
 
-      {/* Contact Form Section (Reusing Brutalist style from ServicePage) */}
-      <section className="py-24 px-6 bg-[#FF8A3D] border-t-8 border-black relative overflow-hidden">
-        {/* Abstract 2D grid background */}
-        <div className="absolute inset-0 bg-grid opacity-30 mix-blend-multiply z-0"></div>
+      {/* ══════════════════════════════════════════
+          GET IN TOUCH
+      ══════════════════════════════════════════ */}
+      <section className="py-24 px-4 md:px-8 relative overflow-hidden" style={{ backgroundColor: '#f9f9eb' }}>
+        <DottedBg />
         
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ staggerChildren: 0.2 }}
-          className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 relative z-10"
-        >
-          <div className="space-y-10">
-            <h2 className="text-6xl md:text-8xl font-black uppercase leading-none tracking-tighter text-white drop-shadow-[4px_4px_0_rgba(0,0,0,1)]">
-              Get In <span className="text-blue-900 italic">Touch</span>
+        <div className="max-w-6xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          {/* Left Info */}
+          <Reveal from="left">
+            <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">
+              Get In Touch
             </h2>
-            <p className="text-2xl font-bold bg-white p-6 border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)]">
-              Questions or need support? Contact our seasoned IT consultants for
-              <span className={`px-2 mx-2 ${colors.yellow} border-2 border-black inline-block transform -rotate-2`}>tailored solutions</span> 
-              that enhance your digital footprint. Your success is our mission!
+            <p className="text-slate-600 font-bold mb-10 leading-relaxed max-w-md">
+              Questions or need support? Contact our seasoned IT consultants for tailored solutions that enhance your digital footprint. Your success is our mission!
             </p>
 
-            <div className="space-y-6 pt-8">
-              <div className="flex items-center gap-6 group">
-                <div className={`p-4 border-4 border-black ${colors.green} group-hover:-rotate-12 transition-transform`}>
-                  <PhoneCall size={32} />
+            <div className="space-y-6">
+              {[
+                { icon: Phone, text: "99789 71636" },
+                { icon: Mail, text: "info@astniq.com" },
+                { icon: MapPin, text: "503, Sun Avenue One, near Shyamal, Ambawadi, Ahmedabad, Gujarat" }
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center flex-shrink-0">
+                    <item.icon size={18} className="text-slate-600" />
+                  </div>
+                  <span className="text-slate-700 font-semibold">{item.text}</span>
                 </div>
-                <div>
-                  <p className="font-black uppercase text-sm text-gray-500">Call Us</p>
-                  <p className="text-xl font-black">91402 71025</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-6 group">
-                <div className={`p-4 border-4 border-black ${colors.orange} group-hover:rotate-12 transition-transform`}>
-                  <Globe size={32} />
-                </div>
-                <div>
-                  <p className="font-black uppercase text-sm text-gray-500">Email Us</p>
-                  <p className="text-xl font-black underline">Info@astniq.com</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-6 group">
-                <div className={`p-4 border-4 border-black ${colors.blue} text-white group-hover:-rotate-12 transition-transform`}>
-                  <Code size={32} />
-                </div>
-                <div>
-                  <p className="font-black uppercase text-sm text-gray-500">Visit Us</p>
-                  <p className="text-xl font-black">502, Sun Avenue One, near Shyamal crossroads, Ahmedabad, Gujarat</p>
-                </div>
-              </div>
+              ))}
             </div>
-          </div>
+          </Reveal>
 
-          <div className={`bg-white border-8 border-black p-10 md:p-14 shadow-[20px_20px_0_0_rgba(0,0,0,1)] relative`}>
-            {/* Form decorative offset */}
-            <div className={`absolute -top-8 -right-8 w-20 h-20 ${colors.red} border-4 border-black rounded-full -z-10 animate-pulse`}></div>
-            
-            <form className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="font-black uppercase text-sm mb-2 block">First Name</label>
-                  <input type="text" className="w-full p-4 border-4 border-black bg-[#F4F7FE] focus:outline-none focus:bg-white focus:shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all font-bold" placeholder="JOHN" />
-                </div>
-                <div>
-                  <label className="font-black uppercase text-sm mb-2 block">Last Name</label>
-                  <input type="text" className="w-full p-4 border-4 border-black bg-[#F4F7FE] focus:outline-none focus:bg-white focus:shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all font-bold" placeholder="DOE" />
-                </div>
+          {/* Right Form */}
+          <Reveal from="right" delay={150}>
+            <div className="bg-white/50 backdrop-blur-sm p-8 rounded-3xl border border-white shadow-xl">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <input type="text" placeholder="First Name" className="w-full px-5 py-4 bg-[#f4ede4] rounded-xl outline-none text-slate-800 placeholder:text-slate-500 font-semibold focus:ring-2 focus:ring-blue-500 transition-all" />
+                <input type="text" placeholder="Last Name"  className="w-full px-5 py-4 bg-[#f4ede4] rounded-xl outline-none text-slate-800 placeholder:text-slate-500 font-semibold focus:ring-2 focus:ring-blue-500 transition-all" />
               </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <input type="email" placeholder="Email"     className="w-full px-5 py-4 bg-[#f4ede4] rounded-xl outline-none text-slate-800 placeholder:text-slate-500 font-semibold focus:ring-2 focus:ring-blue-500 transition-all" />
+                <input type="tel"   placeholder="Phone no." className="w-full px-5 py-4 bg-[#f4ede4] rounded-xl outline-none text-slate-800 placeholder:text-slate-500 font-semibold focus:ring-2 focus:ring-blue-500 transition-all" />
+              </div>
+              <input type="text" placeholder="Subject" className="w-full px-5 py-4 bg-[#f4ede4] rounded-xl outline-none text-slate-800 placeholder:text-slate-500 font-semibold mb-4 focus:ring-2 focus:ring-blue-500 transition-all" />
+              <textarea placeholder="Project Description" rows={4} className="w-full px-5 py-4 bg-[#f4ede4] rounded-xl outline-none text-slate-800 placeholder:text-slate-500 font-semibold mb-6 resize-none focus:ring-2 focus:ring-blue-500 transition-all" />
               
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="font-black uppercase text-sm mb-2 block">Email Address</label>
-                  <input type="email" className="w-full p-4 border-4 border-black bg-[#F4F7FE] focus:outline-none focus:bg-white focus:shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all font-bold" placeholder="HELLO@EXAMPLE.COM" />
-                </div>
-                <div>
-                  <label className="font-black uppercase text-sm mb-2 block">Phone Number</label>
-                  <input type="tel" className="w-full p-4 border-4 border-black bg-[#F4F7FE] focus:outline-none focus:bg-white focus:shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all font-bold" placeholder="+1 (555) 000-0000" />
-                </div>
-              </div>
-
-              <div>
-                <label className="font-black uppercase text-sm mb-2 block">Subject</label>
-                <input type="text" className="w-full p-4 border-4 border-black bg-[#F4F7FE] focus:outline-none focus:bg-white focus:shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all font-bold" placeholder="HOW CAN WE HELP?" />
-              </div>
-
-              <div>
-                <label className="font-black uppercase text-sm mb-2 block">Project Description</label>
-                <textarea rows="4" className="w-full p-4 border-4 border-black bg-[#F4F7FE] focus:outline-none focus:bg-white focus:shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all font-bold resize-none" placeholder="TELL US ABOUT YOUR AMAZING PROJECT..."></textarea>
-              </div>
-
-              <button type="button" className={`w-full py-5 ${colors.blue} text-white border-4 border-black font-black uppercase text-2xl shadow-[8px_8px_0_0_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-x-2 active:translate-y-2 active:shadow-none transition-all`}>
+              <button className="flex items-center justify-center gap-2 px-8 py-4 bg-[#1a56db] hover:bg-blue-700 text-white font-black rounded-full shadow-lg hover:-translate-y-1 transition-all duration-300 w-[200px]">
                 Submit Button
               </button>
-            </form>
-          </div>
-        </motion.div>
+            </div>
+          </Reveal>
+        </div>
       </section>
-      
-    </>
+
+    </div>
   );
-};
+}

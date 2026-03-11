@@ -8,8 +8,8 @@ const topics = [
   {
     category: "Web Development",
     icon: Globe,
-    bgColor: "bg-brand-red",
-    shadow: "neo-shadow-black",
+    bgColor: "bg-gradient-to-br from-rose-400 to-orange-400",
+    shadow: "shadow-rose-500/40",
     items: [
       { name: "Angular",  logo: `${SI}/angular` },
       { name: "Vue Js",   logo: `${SI}/vuedotjs` },
@@ -24,8 +24,8 @@ const topics = [
   {
     category: "Mobile Technology",
     icon: Smartphone,
-    bgColor: "bg-brand-blue",
-    shadow: "neo-shadow-yellow",
+    bgColor: "bg-gradient-to-br from-blue-400 to-cyan-400",
+    shadow: "shadow-cyan-500/40",
     items: [
       { name: "Android", logo: `${SI}/android` },
       { name: "iOS",     logo: `${SI}/apple` },
@@ -34,8 +34,8 @@ const topics = [
   {
     category: "Cross Platform",
     icon: Blocks,
-    bgColor: "bg-brand-yellow",
-    shadow: "neo-shadow-black",
+    bgColor: "bg-gradient-to-br from-sky-400 to-indigo-400",
+    shadow: "shadow-indigo-500/40",
     items: [
       { name: "Flutter",      logo: `${SI}/flutter` },
       { name: "React Native", logo: `${SI}/react` },
@@ -44,8 +44,8 @@ const topics = [
   {
     category: "CMS",
     icon: Code2,
-    bgColor: "bg-brand-green",
-    shadow: "neo-shadow-black",
+    bgColor: "bg-gradient-to-br from-indigo-400 to-purple-400",
+    shadow: "shadow-purple-500/40",
     items: [
       { name: "WordPress",   logo: `${SI}/wordpress` },
       { name: "CodeIgniter", logo: `${SI}/codeigniter` },
@@ -57,8 +57,8 @@ const topics = [
   {
     category: "Database",
     icon: Database,
-    bgColor: "bg-brand-red",
-    shadow: "neo-shadow-blue",
+    bgColor: "bg-gradient-to-br from-orange-400 to-amber-400",
+    shadow: "shadow-orange-500/40",
     items: [
       { name: "MySQL",      logo: `${SI}/mysql` },
       { name: "PostgreSQL", logo: `${SI}/postgresql` },
@@ -70,8 +70,8 @@ const topics = [
   {
     category: "Devops and Cloud",
     icon: Cloud,
-    bgColor: "bg-brand-blue",
-    shadow: "neo-shadow-black",
+    bgColor: "bg-gradient-to-br from-emerald-400 to-teal-400",
+    shadow: "shadow-emerald-500/40",
     items: [
       { name: "Terraform", logo: `${SI}/terraform` },
       { name: "CI / CD",   logo: `${SI}/githubactions` },
@@ -84,26 +84,21 @@ const topics = [
 
 export function Technologies() {
   return (
-    <section className="bg-brand-green py-32 pb-48 px-4 md:px-8 w-full flex flex-col justify-center items-center overflow-hidden border-b-8 border-brand-black relative">
-      <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #0a0a0f 0, #0a0a0f 2px, transparent 2px, transparent 12px)' }} />
-      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+    <section className="bg-slate-50 py-32 pb-48 px-4 md:px-8 w-full flex flex-col justify-center items-center overflow-hidden">
+      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Left Content Area */}
         <div className="flex flex-col z-10">
-          <div className="inline-block bg-brand-white text-brand-black px-6 py-2 border-4 border-brand-black neo-shadow-black transform -rotate-2 w-fit mb-8">
-            <h2 className="text-4xl md:text-6xl ubuntu-bold uppercase leading-tight" style={{ textShadow: '2px 2px 0 #1a56db' }}>
-              Technologies <br />&amp; Platforms <br />We Work With
-            </h2>
-          </div>
-          <div className="bg-brand-yellow border-4 border-brand-black neo-shadow-black p-6 rounded-xl transform rotate-1 mb-8">
-            <p className="text-brand-black text-xl font-bold leading-relaxed mb-4">
-              Welcome to our software development company, where we elevate your business with our bespoke software solutions, crafted to drive growth and efficiency.
-            </p>
-            <p className="text-brand-black text-lg font-bold leading-relaxed">
-              Partner with us for innovative and scalable solutions.
-            </p>
-          </div>
-          <div className="mt-4">
-            <button className="bg-brand-blue text-brand-white font-black uppercase text-xl px-10 py-4 border-4 border-brand-black neo-shadow-black hover:translate-x-1 hover:-translate-y-1 hover:neo-shadow-yellow transition-transform">
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6 leading-tight">
+            Technologies &amp; Platforms We Work With
+          </h2>
+          <p className="text-slate-600 text-lg leading-relaxed mb-6">
+            Welcome to our software development company, where we elevate your business with our bespoke software solutions, crafted to drive growth and efficiency.
+          </p>
+          <p className="text-slate-600 text-lg leading-relaxed">
+            Partner with us for innovative and scalable software solutions tailored to your needs.
+          </p>
+          <div className="mt-8">
+            <button className="bg-blue-600 text-white font-medium px-8 py-3 rounded-md hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/20">
               Discover More
             </button>
           </div>
@@ -122,34 +117,34 @@ export function Technologies() {
             {topics.map((topic, index) => (
               <Card
                 key={index}
-                className={`border-4 border-brand-black flex flex-col rounded-3xl h-full ${topic.bgColor} ${topic.shadow}`}
+                className={`border-none shadow-[0_20px_50px_rgba(0,0,0,0.2)] flex flex-col rounded-[2rem] h-full ${topic.bgColor} ${topic.shadow}`}
               >
                 {/* Header: icon + title */}
                 <div className="flex items-center gap-4 px-8 pt-8 pb-5">
-                  <div className="shrink-0 w-16 h-16 bg-brand-white border-4 border-brand-black rounded-xl flex items-center justify-center text-brand-black neo-shadow-black transform -rotate-3">
-                    <topic.icon size={36} strokeWidth={2.5} />
+                  <div className="shrink-0 w-12 h-12 bg-white/30 rounded-xl flex items-center justify-center text-white shadow-inner">
+                    <topic.icon size={26} />
                   </div>
-                  <h3 className="text-3xl md:text-4xl ubuntu-bold text-brand-black uppercase tracking-wide leading-tight ml-2">
+                  <h3 className="text-2xl md:text-3xl font-extrabold text-white tracking-wide leading-tight">
                     {topic.category}
                   </h3>
                 </div>
 
                 {/* Divider */}
-                <div className="mx-8 mb-5 h-2 bg-brand-black" />
+                <div className="mx-8 mb-5 h-px bg-white/25" />
 
                 {/* Items grid with real icons */}
-                <div className="flex-1 px-8 pb-8 grid grid-cols-3 gap-6 content-start">
+                <div className="flex-1 px-8 pb-8 grid grid-cols-3 gap-4 content-start">
                   {topic.items.map((item, itemIdx) => (
                     <div
                       key={itemIdx}
-                      className="bg-brand-white rounded-xl py-4 px-2 flex flex-col items-center justify-center text-center gap-3 border-4 border-brand-black neo-shadow-black transform hover:-rotate-2 transition-transform cursor-pointer"
+                      className="bg-white rounded-2xl py-4 px-2 flex flex-col items-center justify-center text-center gap-2 shadow-md"
                     >
                       {/* White rounded square with real brand icon */}
-                      <div className="w-12 h-12 flex items-center justify-center">
+                      <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-md p-2">
                         <img
                           src={item.logo}
                           alt={item.name}
-                          className="w-full h-full object-contain filter grayscale contrast-200"
+                          className="w-full h-full object-contain"
                           loading="lazy"
                           onError={(e) => {
                             e.currentTarget.style.display = 'none';
@@ -157,7 +152,7 @@ export function Technologies() {
                           }}
                         />
                       </div>
-                      <span className="text-brand-black text-sm font-black uppercase tracking-wide leading-tight mt-1">
+                      <span className="text-slate-700 text-sm font-bold tracking-wide leading-tight">
                         {item.name}
                       </span>
                     </div>

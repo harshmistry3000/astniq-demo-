@@ -53,40 +53,52 @@ const consultingServices = [
 
 export function ConsultingServices() {
   return (
-    <section className="bg-brand-blue py-24 px-4 md:px-8 w-full flex flex-col justify-center items-center border-b-8 border-brand-black relative">
-      <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#0a0a0f 3px, transparent 3px)', backgroundSize: '30px 30px' }} />
-      <div className="max-w-7xl mx-auto w-full relative z-10">
+    <section className="bg-white py-24 px-4 md:px-8 w-full flex flex-col justify-center items-center">
+      <div className="max-w-7xl mx-auto w-full">
         {/* Header Section */}
-        <div className="text-center mb-20 max-w-4xl mx-auto">
-          <div className="inline-block bg-brand-yellow text-brand-black px-6 py-2 border-4 border-brand-black neo-shadow-black transform rotate-2 mb-8">
-            <h2 className="text-4xl md:text-6xl ubuntu-bold uppercase tracking-widest" style={{ textShadow: '2px 2px 0 #10b981' }}>
-              Services For Consulting
-            </h2>
-          </div>
-          <p className="text-brand-white text-xl font-black leading-relaxed bg-brand-black p-6 border-4 border-brand-white neo-shadow-red transform -rotate-1">
+        <div className="text-center mb-16 max-w-4xl mx-auto">
+          <p className="text-red-500 font-bold uppercase text-sm mb-3 tracking-wider">
+            Featured Services
+          </p>
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-800 mb-6">
+            Services For Consulting
+          </h2>
+          <p className="text-slate-500 text-lg leading-relaxed">
             Start your business journey with our consulting service special for startups. With the experience for then 10 years we are running our own startups so you can trust on us from our work profile.
           </p>
         </div>
 
         {/* Grid Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {consultingServices.map((service, index) => (
-            <div key={index} className="relative w-full h-full bg-brand-white border-4 border-brand-black p-8 flex flex-col neo-shadow-black hover:-translate-y-2 hover:-translate-x-1 hover:neo-shadow-yellow transition-all duration-300">
-                <div className={`p-4 rounded-xl shrink-0 w-fit mb-6 border-4 border-brand-black bg-brand-black text-brand-white neo-shadow-red transform -rotate-3`}>
-                  <service.icon size={36} strokeWidth={2.5} />
+            <div key={index} className="relative rounded-xl w-full h-full">
+              <GlowBorder
+                color={['#A07CFE', '#FE8FB5', '#FFBE7B']}
+                borderRadius={12}
+                borderWidth={2}
+                duration={10}
+                className="z-20"
+              />
+              <CardSpotlight
+                className="p-8 border-none hover:shadow-lg transition-all duration-300 cursor-pointer h-full"
+                slotClass="flex flex-col sm:flex-row items-start gap-5 h-full"
+                gradientColor="rgba(200, 220, 255, 0.4)"
+                gradientOpacity={1}
+              >
+                <div className={`p-4 rounded-full shrink-0 ${service.iconBg} ${service.iconColor}`}>
+                  <service.icon size={32} />
                 </div>
               
                 <div className="flex flex-col">
-                  <h3 className="text-2xl ubuntu-bold text-brand-black mb-4 uppercase leading-tight relative z-10">
+                  <h3 className="text-xl font-bold text-blue-600 mb-3 leading-tight">
                     {service.title}
                   </h3>
                   
-                  <div className="w-16 h-1.5 bg-brand-black mb-6"></div>
-
-                  <p className="quicksand-font text-brand-black text-[16px] leading-relaxed font-bold">
+                  <p className="text-slate-500 text-[15px] leading-relaxed font-medium">
                     {service.description}
                   </p>
                 </div>
+              </CardSpotlight>
             </div>
           ))}
         </div>

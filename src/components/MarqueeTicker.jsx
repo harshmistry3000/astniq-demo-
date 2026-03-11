@@ -40,14 +40,14 @@ function MarqueeRow({ items, direction = 1, speed = 40, accent = '#3b82f6' }) {
   const doubled = [...items, ...items, ...items];
 
   return (
-    <div className="w-full overflow-hidden py-4 border-b-4 border-brand-black">
-      <div ref={trackRef} className="flex items-center gap-12 whitespace-nowrap will-change-transform">
+    <div className="w-full overflow-hidden py-3">
+      <div ref={trackRef} className="flex items-center gap-10 whitespace-nowrap will-change-transform">
         {doubled.map((item, i) => (
-          <div key={i} className="flex items-center gap-6 flex-shrink-0">
+          <div key={i} className="flex items-center gap-4 flex-shrink-0">
             <span style={{ color: accent }}>
               {DOT}
             </span>
-            <span className="ubuntu-bold text-2xl uppercase tracking-[0.1em] text-brand-black hover:text-white transition-colors cursor-default select-none" style={{ textShadow: '2px 2px 0px rgba(0,0,0,0.2)' }}>
+            <span className="ubuntu-bold text-[13px] uppercase tracking-[0.2em] text-white/70 hover:text-white transition-colors cursor-default select-none">
               {item}
             </span>
           </div>
@@ -60,10 +60,26 @@ function MarqueeRow({ items, direction = 1, speed = 40, accent = '#3b82f6' }) {
 export function MarqueeTicker() {
   return (
     <div
-      className="w-full relative overflow-hidden bg-brand-yellow border-y-8 border-brand-black"
+      className="w-full relative overflow-hidden"
+      style={{ background: 'linear-gradient(180deg, #060b18, #09112b)' }}
     >
-      <MarqueeRow items={ITEMS} direction={1} speed={60} accent="#ef4444" />
-      <MarqueeRow items={ITEMS} direction={-1} speed={50} accent="#1a56db" />
+      {/* Fade masks */}
+      <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+        style={{ background: 'linear-gradient(90deg, #060b18, transparent)' }} />
+      <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+        style={{ background: 'linear-gradient(270deg, #060b18, transparent)' }} />
+
+      {/* Top thin separator */}
+      <div className="w-full h-px bg-white/10" />
+      
+      <MarqueeRow items={ITEMS} direction={1} speed={50} accent="#3b82f6" />
+      
+      <div className="w-full h-px bg-white/5" />
+      
+      <MarqueeRow items={ITEMS} direction={-1} speed={40} accent="#f59e0b" />
+      
+      {/* Bottom separator */}
+      <div className="w-full h-px bg-white/10" />
     </div>
   );
 }

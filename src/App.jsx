@@ -10,11 +10,10 @@ import { ChooseFuture } from './components/ChooseFuture'
 import { Footer } from './components/Footer'
 import { GlobeStats } from './components/GlobeStats'
 import { MarqueeTicker } from './components/MarqueeTicker'
-import { Graph3D } from './components/Graph3D'
+import { FloatingCubes } from './components/FloatingCubes'
 import { AIPage } from './pages/AIPage'
 import { ServicePage } from './pages/ServicePage'
 import { TechnologiesPage } from './pages/TechnologiesPage'
-import { FloatingCubes } from './components/FloatingCubes'
 import './App.css'
 
 function HomePage() {
@@ -29,7 +28,6 @@ function HomePage() {
       <ConsultingServices />
       <FloatingCubes />
       <Technologies />
-      <Graph3D />
       <HowWeWork />
       <ChooseFuture />
       <Footer />
@@ -59,7 +57,7 @@ function ServicePageWrapper() {
 
 function TechnologiesPageWrapper() {
   return (
-    <div className="w-full min-h-screen overflow-x-hidden pt-20">
+    <div className="w-full min-h-screen overflow-x-hidden">
       <Navbar />
       <TechnologiesPage />
       <Footer />
