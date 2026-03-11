@@ -85,6 +85,7 @@
     --sidebar-ring: oklch(0.556 0 0)}
   .theme {
     --font-sans: 'Geist Variable', sans-serif;
+    --animate-orbit: orbit calc(var(--duration)*1s) linear infinite;
   }
   * {
     @apply border-border outline-ring/50;
@@ -172,3 +173,14 @@
 }
 
 html { scroll-behavior: smooth; }
+
+@theme inline {
+  @keyframes orbit {
+  0% {
+    transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
+    }
+  100% {
+    transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
+    }
+  }
+}
